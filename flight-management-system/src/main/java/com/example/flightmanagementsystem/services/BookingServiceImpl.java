@@ -22,7 +22,7 @@ public class BookingServiceImpl implements BookingService {
 	
 	public List<Booking> viewBooking(Integer bid )
 	{
-		return bookingRepository.findByBookingID(bid);
+		return bookingRepository.findByBookingId(bid);
 	}
 
 	public List<Booking> viewBooking()

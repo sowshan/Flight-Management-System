@@ -16,9 +16,9 @@ public class ScheduledFlight {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer availableSeats;
-	//@OneToOne(mappedBy = "scheduledFlight",orphanRemoval=true, targetEntity = Flight.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(orphanRemoval=true, targetEntity = Flight.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Flight flight;
-	//@OneToOne(mappedBy = "scheduledFlight",orphanRemoval=true, targetEntity = Schedule.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@OneToOne(orphanRemoval=true, targetEntity = Schedule.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	private Schedule schedule;
 	/*
 	 * public ScheduledFlight() { super(); // TODO Auto-generated constructor stub }

@@ -9,7 +9,7 @@ import com.example.flightmanagementsystem.entity.Booking;
 
 public interface BookingRepository extends CrudRepository<Booking,Integer> {
 
-	List<Booking> findByBookingID(Integer bid);
+	List<Booking> findByBookingId(Integer bid);
 
 	boolean existsById(Integer bid);
 

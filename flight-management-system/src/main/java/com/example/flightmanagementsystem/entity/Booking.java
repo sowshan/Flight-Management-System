@@ -5,12 +5,15 @@ import java.util.Date;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -29,9 +32,12 @@ public class Booking {
 	private Integer bookingId;
 	private Integer noOfPassengers;
 	private Date bookingdate;
+	@OneToMany(cascade = CascadeType.MERGE)
 	private List<Passenger> passengerList;
 	private Double ticketCost;
+	@OneToOne(cascade = CascadeType.MERGE)
 	private Flight flight;
+	@ManyToOne(cascade = CascadeType.MERGE)
 	private User userId;
 	/*
 	 * public Integer getBookingId() { return bookingId; } public void
