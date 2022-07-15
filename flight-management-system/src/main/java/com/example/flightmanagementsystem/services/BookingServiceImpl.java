@@ -29,7 +29,7 @@ public class BookingServiceImpl implements BookingService {
 	{
 		return (List<Booking>) bookingRepository.findAll();
 	}
-	public void deleteBooking(Integer bid)
+	public String deleteBooking(Integer bid)
 	{
 		if(bookingRepository.existsById(bid)) {
 			bookingRepository.deleteById(bid);
@@ -38,6 +38,7 @@ public class BookingServiceImpl implements BookingService {
 				//throw new FlightNotFoundException();
 				
 			}
+		return null;
 	}
 	//public void validateBooking(Booking booking); 
 	//public void validatePassenger(Passenger passenger);
