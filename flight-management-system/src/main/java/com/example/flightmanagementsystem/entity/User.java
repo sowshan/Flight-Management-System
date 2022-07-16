@@ -5,6 +5,7 @@ import javax.validation.constraints.*;
 
 
 @Entity
+@Table(name = "users")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -21,7 +22,8 @@ public class User {
 	private String userType;
 	@Column
 	private String password;
-	public Integer getPhoneNo() {
+
+public Integer getPhoneNo() {
 		return phoneNo;
 	}
 	public void setPhoneNo(Integer phoneNo) {
@@ -66,4 +68,6 @@ public class User {
 		this.userId = userId;
 	}
 
+	
+	
 }
