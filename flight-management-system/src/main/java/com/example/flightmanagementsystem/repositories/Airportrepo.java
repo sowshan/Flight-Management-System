@@ -1,16 +1,14 @@
-package com.example.flightmanagementsystem.repositories;
-
-import java.util.List;
-
+package com.flight.project.Repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import com.example.demo.bean.Airport;
+import com.flight.project.entity.Airport;
 
+@Repository
+public interface AirportRepo extends JpaRepository<Airport, String>{
 
-public interface Airportrepo extends JpaRepository<Airport,String> {
-	List<Airport> findByairportId(String airportID);
-   // String deleteByFlightId(String flightId);
-//	List<Flight> findByName(String name);
-	
+	Airport findByAirportId(String airportid);
+
 }
+
