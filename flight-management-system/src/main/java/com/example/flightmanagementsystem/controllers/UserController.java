@@ -1,6 +1,7 @@
-package com.example.flightmanagementsystem.controller;
+package com.example.flightmanagementsystem.controllers;
 
 import java.math.BigInteger;
+
 import java.util.List;
 
 
@@ -9,9 +10,9 @@ import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.flightmanagementsystem.entity.User;
-import com.example.flightmanagementsystem.repository.UserRepo;
-import com.example.flightmanagementsystem.service.UserService;
-import com.example.flightmanagementsystem.service.UserServiceImpl;
+import com.example.flightmanagementsystem.repositories.UserRepo;
+import com.example.flightmanagementsystem.services.UserService;
+import com.example.flightmanagementsystem.services.UserServiceImpl;
 
 
 @RestController

@@ -1,7 +1,8 @@
-package com.example.flightmanagementsystem.service;
+package com.example.flightmanagementsystem.services;
 
 
 import java.util.Optional;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,7 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.flightmanagementsystem.entity.User;
-import com.example.flightmanagementsystem.repository.UserRepo;
+import com.example.flightmanagementsystem.repositories.UserRepo;
 
 
 @Service

@@ -1,14 +1,14 @@
-package com.flight.project.serviceimpl;
+package com.example.flightmanagementsystem.services;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.flight.project.Repository.AirportRepo;
-import com.flight.project.entity.Airport;
-import com.flight.project.exception.AirportNotFoundException;
-import com.flight.project.service.AirportService;
+import com.example.flightmanagementsystem.repositories.AirportRepo;
+import com.example.flightmanagementsystem.entity.Airport;
+import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
+import com.example.flightmanagementsystem.services.AirportService;
 
 
 @Service

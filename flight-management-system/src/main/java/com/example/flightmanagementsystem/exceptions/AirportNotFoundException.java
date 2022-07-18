@@ -1,4 +1,4 @@
-package com.flight.project.exception;
+package com.example.flightmanagementsystem.exceptions;
 
 public class AirportNotFoundException extends Exception{
 

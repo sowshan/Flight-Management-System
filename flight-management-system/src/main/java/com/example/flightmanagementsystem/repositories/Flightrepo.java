@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.example.demo.bean.Flight;
+import com.example.flightmanagementsystem.entity.Flight;
 
 
 public interface Flightrepo extends JpaRepository<Flight,String> {

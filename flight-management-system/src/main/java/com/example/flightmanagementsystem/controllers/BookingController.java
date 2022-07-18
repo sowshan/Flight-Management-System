@@ -18,9 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bmsrestfulapi.entities.AccountInfo;
-import com.bmsrestfulapi.entities.Login;
-import com.bmsrestfulapi.entities.Role;
+
 import com.example.flightmanagementsystem.entity.Booking;
 import com.example.flightmanagementsystem.entity.Flight;
 import com.example.flightmanagementsystem.entity.Passenger;

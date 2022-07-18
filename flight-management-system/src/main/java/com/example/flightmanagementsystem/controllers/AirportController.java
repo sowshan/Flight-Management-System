@@ -1,6 +1,7 @@
-package com.flight.project.controller;
+package com.example.flightmanagementsystem.controllers;
 
 import java.util.List;
+
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.flight.project.entity.Airport;
-import com.flight.project.exception.AirportNotFoundException;
-import com.flight.project.service.AirportService;
+import com.example.flightmanagementsystem.entity.Airport;
+import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
+import com.example.flightmanagementsystem.services.AirportService;
 
 @RestController
 public class AirportController {

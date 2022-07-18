@@ -1,10 +1,11 @@
-package com.flight.project.service;
+package com.example.flightmanagementsystem.services;
 
 import java.util.List;
 
 
-import com.flight.project.entity.Airport;
-import com.flight.project.exception.AirportNotFoundException;
+
+import com.example.flightmanagementsystem.entity.Airport;
+import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
 
 
 public interface AirportService {
