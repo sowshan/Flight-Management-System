@@ -4,6 +4,8 @@ package com.example.flightmanagementsystem.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.example.flightmanagementsystem.entity.User;
@@ -22,9 +24,18 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public Optional<User> viewUser(String userId) {
-		return usr.findById(userId);
-		}
+	public ResponseEntity<User> viewUser(String userId) {
+		Optional<User> findById = usr.findById(userId);
+		//try {
+			if (findById.isPresent()) {
+				User findUser = findById.get();
+				return new ResponseEntity<User>(findUser, HttpStatus.OK);
+			} else
+				//throw new RecordNotFoundException("No record found with ID " + userId);
+		//} catch (RecordNotFoundException e) {
+			return new ResponseEntity<User>( HttpStatus.NOT_FOUND);
+		//}
+	}
 		
 	
 	@Override
@@ -36,10 +47,23 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public Boolean removeUser(String userId) {
 		if(usr.existsById(userId)) {
+			User user = usr.getReferenceById(userId);
+			if(user.getUserType()=="Admin") {
 			usr.deleteById(userId);
 		
-			return true;}
+			return true;}}
 		return false;
 	
 	}
+	public Boolean login(String userId,String password) {
+		if(usr.existsById(userId) ) {
+			User user = usr.getReferenceById(userId);
+			if(user.getPassword()==password) {
+				return true;
+			}
+			
+		}
+	return false;
+	}
+
 }
