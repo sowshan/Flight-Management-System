@@ -22,7 +22,7 @@ public class Flightservice {
 		 public List<Flight> fetchFlightList() {
 		 return flightrepo.findAll();
 		 }
-		 public List<Flight> viewFlightById(String flightId)  {
+		 public Flight viewFlightById(String flightId)  {
 			 return flightrepo.findByFlightId(flightId);
 			 }
 			public Flight modifyFlight(Flight flight) {

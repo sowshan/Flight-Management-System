@@ -2,6 +2,7 @@ package com.example.flightmanagementsystem.controllers;
 
 import java.util.List;
 
+
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,13 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.flightmanagementsystem.entity.Airport;
 import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
-import com.example.flightmanagementsystem.services.AirportService;
+import com.example.flightmanagementsystem.services.Airportservice;
 
 @RestController
 public class AirportController {
 	
 	@Autowired
-	private AirportService airportservice;
+	private Airportservice airportservice;
 	
 	@PostMapping(value="/flight/addAirport",consumes = "application/json")
 	public String addAirport(@RequestBody Airport airport) {

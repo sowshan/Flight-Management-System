@@ -1,8 +1,9 @@
-package com.flight.project.service;
+package com.example.flightmanagementsystem.services;
 import java.math.BigInteger;
-import com.flight.project.entity.ScheduledFlight;
-import com.flight.project.exception.RecordNotFoundException;
-import com.flight.project.exception.ScheduledFlightNotFoundException;
+
+import com.example.flightmanagementsystem.entity.ScheduledFlight;
+import com.example.flightmanagementsystem.exceptions.RecordNotFoundException;
+import com.example.flightmanagementsystem.exceptions.ScheduledFlightNotFoundException;
 
 public interface ScheduledFlightService {
 	public ScheduledFlight addScheduledFlight(ScheduledFlight scheduledFlight);

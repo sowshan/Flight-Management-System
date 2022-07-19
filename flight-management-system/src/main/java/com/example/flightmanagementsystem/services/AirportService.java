@@ -8,7 +8,7 @@ import com.example.flightmanagementsystem.entity.Airport;
 import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
 
 
-public interface AirportService {
+public interface Airportservice {
 	
 	Airport addAirport(Airport airport);
 	Airport modifyAirport(Airport airport);

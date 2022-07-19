@@ -2,20 +2,20 @@ package com.example.flightmanagementsystem.services;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.flightmanagementsystem.repositories.AirportRepo;
 import com.example.flightmanagementsystem.entity.Airport;
 import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
-import com.example.flightmanagementsystem.services.AirportService;
+import com.example.flightmanagementsystem.repositories.Airportrepo;
 
 
 @Service
-public class Airportserviceimpl implements AirportService{
+public class Airportserviceimpl implements Airportservice{
 
 	@Autowired
-	private AirportRepo airportrepo;
+	private Airportrepo airportrepo;
 
 	@Override
 	public List<Airport> viewAllAirport() {

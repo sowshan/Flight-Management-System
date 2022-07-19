@@ -1,19 +1,20 @@
-package com.flight.project.serviceimpl;
+package com.example.flightmanagementsystem.services;
 
 import java.math.BigInteger;
+
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.flight.project.Repository.ScheduleRepo;
-import com.flight.project.Repository.ScheduledFlightRepo;
-import com.flight.project.entity.Schedule;
-import com.flight.project.entity.ScheduledFlight;
-import com.flight.project.exception.RecordNotFoundException;
-import com.flight.project.exception.ScheduledFlightNotFoundException;
-import com.flight.project.service.BookingService;
-import com.flight.project.service.ScheduledFlightService;
+import com.example.flightmanagementsystem.repositories.ScheduleRepo;
+import com.example.flightmanagementsystem.repositories.ScheduledFlightRepo;
+import com.example.flightmanagementsystem.entity.Schedule;
+import com.example.flightmanagementsystem.entity.ScheduledFlight;
+import com.example.flightmanagementsystem.exceptions.RecordNotFoundException;
+import com.example.flightmanagementsystem.exceptions.ScheduledFlightNotFoundException;
+import com.example.flightmanagementsystem.services.BookingService;
+import com.example.flightmanagementsystem.services.ScheduledFlightService;
 
 @Service
 public class ScheduledFlightServiceImpl implements ScheduledFlightService {
@@ -44,12 +45,12 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	@Override
 	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduleFlight) {
 		ScheduledFlight updateScheduleFlight = dao.findById(scheduleFlight.getScheduleFlightId()).get();
-		Schedule updateSchedule = scheduleDao.findById(scheduleFlight.getSchedule().getScheduleId()).get();
+		Schedule updateSchedule = scheduleDao.findById(scheduleFlight.getScheduleFlightId()).get();
 		updateScheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats());
-		updateSchedule.setSrcAirport(scheduleFlight.getSchedule().getSrcAirport());
-		updateSchedule.setDstnAirport(scheduleFlight.getSchedule().getDstnAirport());
-		updateSchedule.setArrDateTime(scheduleFlight.getSchedule().getArrDateTime());
-		updateSchedule.setDeptDateTime(scheduleFlight.getSchedule().getDeptDateTime());
+		updateSchedule.setSourceAirport(scheduleFlight.getSchedule().getSourceAirport());
+		updateSchedule.setDestinationAirport(scheduleFlight.getSchedule().getDestinationAirport());
+		updateSchedule.setAirrivalTime(scheduleFlight.getSchedule().getAirrivalTime());
+		updateSchedule.setDepartureTime(scheduleFlight.getSchedule().getDepartureTime());
 		dao.save(updateScheduleFlight);
 		return scheduleFlight;
 	}
@@ -57,8 +58,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	/*
 	 * Service method to remove existing Scheduled flight from database
 	 */
-	@Override
-	public String removeScheduledFlight(BigInteger flightId) throws RecordNotFoundException {
+	public String removeScheduledFlight(String flightId) throws RecordNotFoundException {
 		if (flightId == null)
 			throw new RecordNotFoundException("Enter flight Id");
 		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
@@ -98,8 +98,7 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	/*
 	 * Service method to view a Scheduled flight by ID from database
 	 */
-	@Override
-	public ScheduledFlight viewScheduledFlight(BigInteger flightId) throws ScheduledFlightNotFoundException {
+	public ScheduledFlight viewScheduledFlight(String flightId) throws ScheduledFlightNotFoundException {
 		if (flightId == null)
 			throw new ScheduledFlightNotFoundException("Enter flight Id");
 		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
@@ -107,6 +106,18 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 			throw new ScheduledFlightNotFoundException("Enter a valid Flight Id");
 		else
 			return scheduleFlight.get();
+	}
+
+	@Override
+	public String removeScheduledFlight(BigInteger id) throws RecordNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ScheduledFlight viewScheduledFlight(BigInteger id) throws ScheduledFlightNotFoundException {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

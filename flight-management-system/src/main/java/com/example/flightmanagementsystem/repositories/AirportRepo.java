@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.example.flightmanagementsystem.entity.Airport;
 
 @Repository
-public interface AirportRepo extends JpaRepository<Airport, String>{
+public interface Airportrepo extends JpaRepository<Airport, String>{
 
 	Airport findByAirportId(String airportid);
 

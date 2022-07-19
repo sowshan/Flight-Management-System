@@ -48,9 +48,9 @@ public class Flightcontroller {
 
 public List<Flight> viewFlightByID(@PathVariable("flightId")String flightId)
 { 
-	if(flightservice.viewFlightById(flightId).isEmpty()) throw new FlightNotFoundException();
+	if(flightservice.viewFlightById(flightId)==null) throw new FlightNotFoundException();
 	System.out.println("Fetched Successfully");
-	return flightservice.viewFlightById(flightId);
+	return (List<Flight>) flightservice.viewFlightById(flightId);
 	
 }
 /*

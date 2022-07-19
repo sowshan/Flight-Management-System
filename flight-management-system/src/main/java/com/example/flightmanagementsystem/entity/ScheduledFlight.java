@@ -1,6 +1,7 @@
 package com.example.flightmanagementsystem.entity;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +23,7 @@ public class ScheduledFlight {
 	
 	@Id
 	@Column(name = "schedule_flight_id")
-	private BigInteger scheduleFlightId;
+	private String scheduleFlightId;
 
 	@OneToOne(fetch = FetchType.EAGER)
 	@NotNull
@@ -42,27 +43,12 @@ public class ScheduledFlight {
 	public ScheduledFlight() {
 
 	}
-
-	/*
-	 * Parameterized constructor
-	 */
-	public ScheduledFlight(BigInteger scheduleFlightId,Flight flight, Integer availableSeats,
-			Schedule schedule) {
-		super();
-		this.scheduleFlightId = scheduleFlightId;
-		this.flight = flight;
-		this.availableSeats = availableSeats;
-		this.schedule = schedule;
-	}
-
-	/*
-	 * Getter and setter for ID
-	 */
-	public BigInteger getScheduleFlightId() {
+	
+	public String getScheduleFlightId() {
 		return scheduleFlightId;
 	}
 
-	public void setScheduleFlightId(BigInteger scheduleFlightId) {
+	public void setScheduleFlightId(String scheduleFlightId) {
 		this.scheduleFlightId = scheduleFlightId;
 	}
 
@@ -77,26 +63,40 @@ public class ScheduledFlight {
 		this.availableSeats = availableSeats;
 	}
 
-	/*
-	 * Getter and setter for Flight object
+	
+	/**
+	 * @return the flight
 	 */
 	public Flight getFlight() {
 		return flight;
 	}
 
-	public void setFlight(Flight flight) {
+	/**
+	 * @param flight the flight to set
+	 */
+	public void setFlight( Flight flight) {
 		this.flight = flight;
 	}
 
-	/*
-	 * Getter and setter for Schedule object
+	/**
+	 * @return the schedule
 	 */
 	public Schedule getSchedule() {
 		return schedule;
 	}
 
+	/**
+	 * @param schedule the schedule to set
+	 */
 	public void setSchedule(Schedule schedule) {
 		this.schedule = schedule;
+	}
+
+	/**
+	 * @param availableSeats the availableSeats to set
+	 */
+	public void setAvailableSeats(Integer availableSeats) {
+		this.availableSeats = availableSeats;
 	}
 
 	@Override

@@ -1,6 +1,7 @@
-package com.flight.project.controller;
+package com.example.flightmanagementsystem.controllers;
 
 import java.math.BigInteger;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,18 +9,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import com.flight.project.entity.Schedule;
-import com.flight.project.entity.ScheduledFlight;
-import com.flight.project.exception.AirportNotFoundException;
-import com.flight.project.exception.RecordNotFoundException;
-import com.flight.project.exception.ScheduledFlightNotFoundException;
-import com.flight.project.service.AirportService;
-import com.flight.project.service.FlightService;
-import com.flight.project.service.ScheduledFlightService;
+import com.example.flightmanagementsystem.entity.Schedule;
+import com.example.flightmanagementsystem.entity.ScheduledFlight;
+import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
+import com.example.flightmanagementsystem.exceptions.RecordNotFoundException;
+import com.example.flightmanagementsystem.exceptions.ScheduledFlightNotFoundException;
+import com.example.flightmanagementsystem.services.Airportservice;
+import com.example.flightmanagementsystem.services.Flightservice;
+import com.example.flightmanagementsystem.services.ScheduledFlightService;
 
 
 @RestController
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/scheduledFlight")
 public class ScheduledFlightController {
 	/*
@@ -29,10 +30,10 @@ public class ScheduledFlightController {
 	ScheduledFlightService scheduleFlightService;
 
 	@Autowired
-	AirportService airportService;
+	Airportservice airportService;
 
 	@Autowired
-	FlightService flightService;
+	Flightservice flightService;
 
 	/*
 	 * Controller for adding Scheduled Flights
@@ -40,23 +41,23 @@ public class ScheduledFlightController {
 	@PostMapping("/add")
 	public ResponseEntity<ScheduledFlight> addSF(@ModelAttribute ScheduledFlight scheduledFlight,
 			@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
-			@RequestParam(name = "deptDateTime") String departureTime, @RequestParam(name = "arrDateTime") String arrivalTime) throws AirportNotFoundException {
+			@RequestParam(name = "deptDateTime") LocalDateTime departureTime, @RequestParam(name = "arrDateTime") LocalDateTime arrivalTime) throws AirportNotFoundException {
 		Schedule schedule = new Schedule();
-		schedule.setScheduleId(scheduledFlight.getScheduleFlightId());
+		schedule.setScheduleID(scheduledFlight.getScheduleFlightId());
 		try {
-			schedule.setSrcAirport(airportService.viewByAirportId(source));
+			schedule.setSourceAirport(airportService.viewByAirportId(source));
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
 		}
 		try {
-			schedule.setDstnAirport(airportService.viewByAirportId(destination));
+			schedule.setDestinationAirport(airportService.viewByAirportId(destination));
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
 		}
-		schedule.setDeptDateTime(departureTime);
-		schedule.setArrDateTime(arrivalTime);
+		schedule.setDepartureTime(departureTime);
+		schedule.setAirrivalTime(arrivalTime);
 		try {
-			scheduledFlight.setFlight(flightService.viewFlight(scheduledFlight.getScheduleFlightId()));
+			scheduledFlight.setFlight(flightService.viewFlightById(scheduledFlight.getScheduleFlightId()));
 		} catch (RecordNotFoundException e1) {
 			return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
 		}
