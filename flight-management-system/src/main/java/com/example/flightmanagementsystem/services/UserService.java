@@ -10,6 +10,7 @@ public interface UserService {
 	public Boolean login(String userId,String password);
 	public  User addUser(User user); 
 	public User viewUser(String userId); //throws UserNotFoundException;
-	public User updateUser(User user) ;//throws UserNotFoundException;
+	//public Users updateUser(User user) ;//throws UserNotFoundException;
 	public Boolean removeUser(String UserId) ;//throws UserNotFoundException;
+	public User updateUser(User user,String userId);
 }
