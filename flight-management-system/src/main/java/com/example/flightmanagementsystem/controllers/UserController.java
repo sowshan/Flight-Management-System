@@ -20,9 +20,7 @@ import com.example.flightmanagementsystem.services.UserServiceImpl;
 @RequestMapping("/users")
 
 public class UserController {
-	@Autowired
-	// UserRepo userR;
-	public UserService userService;
+	public UsersService userService;
 
 	@PostMapping(value = "/createUser", consumes = "application/json")
 //@ExceptionHandler(RecordAlreadyPresentException.class)
@@ -35,6 +33,11 @@ public class UserController {
 		return "Added Successfully";
 
 	}
+	@RequestMapping(value = "/User/{id}", method = RequestMethod.PUT)
+	 public User updateStudent(@RequestBody User user,@PathVariable String id ) {
+		 return userService.updateUser(user,id);
+	}
+	
 
 	@PostMapping(value = "/users/login")
 	public ResponseEntity<String> loginUser(@RequestParam String userId, @RequestParam String password) {
@@ -44,23 +47,25 @@ public class UserController {
 
 			return new ResponseEntity<>(HttpStatus.OK);
 		}
-        
+		else 
 		return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
 	}
 
-	@PutMapping("/updateUser")
+/*	@PutMapping("/updateUser/{id}")
 //@ExceptionHandler(RecordNotFoundException.class)
-	public ResponseEntity<String> updateUser(@RequestBody User updateUser) {
+	public ResponseEntity<String> updateUser(@PathVariable("id") String userId) {
 
-		userService.updateUser(updateUser);
+		userService.updateUser(userId);
 		return new ResponseEntity<>(HttpStatus.OK);
 
-	}
+	}*/
 
 	@GetMapping("/searchUser/{id}")
 //@ExceptionHandler(RecordNotFoundException.class)
-	public User searchUserByID(@PathVariable("id") String userId) {
-		return userService.viewUser(userId);
+	public String searchUserByID(@PathVariable("id") String userId) {
+		
+		userService.viewUser(userId);
+		return "User Found " + userId;
 		
 
 	}
