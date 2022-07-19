@@ -53,13 +53,6 @@ public Integer getPhoneNo() {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Boolean getLoginStatus() {
-		return loginStatus;
-	}
-	public void setLoginStatus(Boolean loginStatus) {
-		this.loginStatus = loginStatus;
-	}
-	private Boolean loginStatus;
 	
 	public String getUserId() {
 		return userId;
