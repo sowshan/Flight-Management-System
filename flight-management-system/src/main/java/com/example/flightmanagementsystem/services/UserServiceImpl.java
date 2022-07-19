@@ -38,16 +38,12 @@ public class UserServiceImpl implements UserService {
 		}
 		
 	
-	@Override
-	public User updateUser(User user) {
-		return usr.save(user);
-		 
-	}
+
 	
 	@Override
 	public Boolean removeUser(String userId) {
 		if(usr.existsById(userId)) {
-			User user = usr.getReferenceById(userId);
+			Users user = usr.getReferenceById(userId);
 			if(user.getUserType()=="Admin") {
 			usr.deleteById(userId);
 		
@@ -55,9 +51,11 @@ public class UserServiceImpl implements UserService {
 		return false;
 	
 	}
+	
+	 
 	public Boolean login(String userId,String password) {
 		if(usr.existsById(userId) ) {
-			User user = usr.getReferenceById(userId);
+			Users user = usr.getReferenceById(userId);
 			if(user.getPassword().equals(password)) {
 				return true;
 			}
@@ -66,4 +64,8 @@ public class UserServiceImpl implements UserService {
 	return false;
 	}
 
+	@Override
+	public User updateUser(User user, String userId) {
+		return usr.save(user);
+	}
 }
