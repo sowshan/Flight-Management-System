@@ -25,18 +25,17 @@ public class UserServiceImpl implements UserService {
 	}
 	
 	@Override
-	public ResponseEntity<User> viewUser(String userId) {
-		Optional<User> findById = usr.findById(userId);
-		//try {
-			if (findById.isPresent()) {
-				User findUser = findById.get();
-				return new ResponseEntity<User>(findUser, HttpStatus.OK);
-			} else
-				//throw new RecordNotFoundException("No record found with ID " + userId);
-		//} catch (RecordNotFoundException e) {
-			return new ResponseEntity<User>( HttpStatus.NOT_FOUND);
-		//}
-	}
+	public User viewUser(String userId) {
+		/*
+		 * Optional<User> findById = usr.findById(userId); //try { if
+		 * (findById.isPresent()) { User findUser = findById.get(); return new
+		 * ResponseEntity<User>(findUser, HttpStatus.OK); } else //throw new
+		 * RecordNotFoundException("No record found with ID " + userId); //} catch
+		 * (RecordNotFoundException e) { return new ResponseEntity<User>(
+		 * HttpStatus.NOT_FOUND); //}
+		 */	
+		return usr.findByUserId(userId);
+		}
 		
 	
 	@Override
@@ -59,7 +58,7 @@ public class UserServiceImpl implements UserService {
 	public Boolean login(String userId,String password) {
 		if(usr.existsById(userId) ) {
 			User user = usr.getReferenceById(userId);
-			if(user.getPassword()==password) {
+			if(user.getPassword().equals(password)) {
 				return true;
 			}
 			

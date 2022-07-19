@@ -16,16 +16,15 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
 @Entity
-@Getter
-@Setter
-@NoArgsConstructor
 @Table(name = "booking")
+@Data
 public class Booking {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,6 +38,91 @@ public class Booking {
 	private Flight flight;
 	@ManyToOne(cascade = CascadeType.MERGE)
 	private User userId;
+	/**
+	 * @return the bookingId
+	 */
+	public Integer getBookingId() {
+		return bookingId;
+	}
+	/**
+	 * @param bookingId the bookingId to set
+	 */
+	public void setBookingId(Integer bookingId) {
+		this.bookingId = bookingId;
+	}
+	/**
+	 * @return the noOfPassengers
+	 */
+	public Integer getNoOfPassengers() {
+		return noOfPassengers;
+	}
+	/**
+	 * @param noOfPassengers the noOfPassengers to set
+	 */
+	public void setNoOfPassengers(Integer noOfPassengers) {
+		this.noOfPassengers = noOfPassengers;
+	}
+	/**
+	 * @return the bookingdate
+	 */
+	public Date getBookingdate() {
+		return bookingdate;
+	}
+	/**
+	 * @param bookingdate the bookingdate to set
+	 */
+	public void setBookingdate(Date bookingdate) {
+		this.bookingdate = bookingdate;
+	}
+	/**
+	 * @return the passengerList
+	 */
+	public List<Passenger> getPassengerList() {
+		return passengerList;
+	}
+	/**
+	 * @param passengerList the passengerList to set
+	 */
+	public void setPassengerList(List<Passenger> passengerList) {
+		this.passengerList = passengerList;
+	}
+	/**
+	 * @return the ticketCost
+	 */
+	public Double getTicketCost() {
+		return ticketCost;
+	}
+	/**
+	 * @param ticketCost the ticketCost to set
+	 */
+	public void setTicketCost(Double ticketCost) {
+		this.ticketCost = ticketCost;
+	}
+	/**
+	 * @return the flight
+	 */
+	public Flight getFlight() {
+		return flight;
+	}
+	/**
+	 * @param flight the flight to set
+	 */
+	public void setFlight(Flight flight) {
+		this.flight = flight;
+	}
+	/**
+	 * @return the userId
+	 */
+	public User getUserId() {
+		return userId;
+	}
+	/**
+	 * @param userId the userId to set
+	 */
+	public void setUserId(User userId) {
+		this.userId = userId;
+	}
+	
 	/*
 	 * public Integer getBookingId() { return bookingId; } public void
 	 * setBookingId(Integer bookingId) { this.bookingId = bookingId; } public
