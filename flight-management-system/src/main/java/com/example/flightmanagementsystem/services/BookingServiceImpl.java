@@ -3,6 +3,7 @@ package com.example.flightmanagementsystem.services;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.flightmanagementsystem.entity.Booking;
@@ -10,6 +11,7 @@ import com.example.flightmanagementsystem.repositories.BookingRepository;
 
 @Service
 public class BookingServiceImpl implements BookingService {
+	@Autowired
 	private BookingRepository bookingRepository;
 	public Booking addBooking(Booking booking)
 	{

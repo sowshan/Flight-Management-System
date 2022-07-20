@@ -2,7 +2,6 @@ package com.example.flightmanagementsystem.entity;
 
 import java.util.Date;
 
-
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -11,6 +10,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -21,7 +21,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Entity
 @Table(name = "booking")
 @Data
@@ -30,27 +29,18 @@ public class Booking {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer bookingId;
 	private Integer noOfPassengers;
+	
 	private Date bookingdate;
+	private String sourceAirport;
+	private String destinationAirport;
 	@OneToMany(cascade = CascadeType.MERGE)
 	private List<Passenger> passengerList;
-	@OneToOne(cascade = CascadeType.MERGE)
-	private Airport sourceAirport;
-	@OneToOne(cascade = CascadeType.MERGE)
-	private Airport destinationAirport;
-	//private Double ticketCost;
 
 	/*
-	 * @OneToOne(cascade = CascadeType.MERGE) private Flight flight;
-	 * 
-	 * @ManyToOne(cascade = CascadeType.MERGE) private User userId;
+	 * @OneToMany(cascade = CascadeType.MERGE) private Passenger passenger;
 	 */
 	/*
-	 * @OneToMany(mappedBy = "booking", targetEntity = Passenger.class, cascade =
-	 * CascadeType.ALL, fetch = FetchType.LAZY) private Passenger passenger;
-	 * 
-	 * @OneToOne(mappedBy = "booking",orphanRemoval=true, targetEntity =
-	 * ScheduledFlight.class, cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	 * private ScheduledFlight scheduledFlight;
+	 * @OneToOne(cascade = CascadeType.ALL) private ScheduledFlight scheduledFlight;
 	 */
 	/**
 	 * @return the bookingId
@@ -89,6 +79,30 @@ public class Booking {
 		this.bookingdate = bookingdate;
 	}
 	/**
+	 * @return the sourceAirport
+	 */
+	public String getSourceAirport() {
+		return sourceAirport;
+	}
+	/**
+	 * @param sourceAirport the sourceAirport to set
+	 */
+	public void setSourceAirport(String sourceAirport) {
+		this.sourceAirport = sourceAirport;
+	}
+	/**
+	 * @return the destinationAirport
+	 */
+	public String getDestinationAirport() {
+		return destinationAirport;
+	}
+	/**
+	 * @param destinationAirport the destinationAirport to set
+	 */
+	public void setDestinationAirport(String destinationAirport) {
+		this.destinationAirport = destinationAirport;
+	}
+	/**
 	 * @return the passengerList
 	 */
 	public List<Passenger> getPassengerList() {
@@ -101,33 +115,9 @@ public class Booking {
 		this.passengerList = passengerList;
 	}
 	/**
-	 * @return the sourceAirport
-	 */
-	public Airport getSourceAirport() {
-		return sourceAirport;
-	}
-	/**
-	 * @param sourceAirport the sourceAirport to set
-	 */
-	public void setSourceAirport(Airport sourceAirport) {
-		this.sourceAirport = sourceAirport;
-	}
-	/**
-	 * @return the destinationAirport
-	 */
-	public Airport getDestinationAirport() {
-		return destinationAirport;
-	}
-	/**
-	 * @param destinationAirport the destinationAirport to set
-	 */
-	public void setDestinationAirport(Airport destinationAirport) {
-		this.destinationAirport = destinationAirport;
-	}
-	/**
 	 * @return the passenger
 	 */
 	
 	
-}
 
+}

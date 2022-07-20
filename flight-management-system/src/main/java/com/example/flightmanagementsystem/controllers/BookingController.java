@@ -36,6 +36,11 @@ public class BookingController {
 		Random rand = new Random();
 		Integer resRandom = rand.nextInt((9999 - 100) + 1) + 10;
 		booking.setBookingId(resRandom);
+
+		Passenger p=new Passenger();
+		List<Passenger> passengerList = new ArrayList<>();
+		passengerList.add(p);
+		
 		bookingService.addBooking(booking);
 		 return "Added Successfully";
 	}
