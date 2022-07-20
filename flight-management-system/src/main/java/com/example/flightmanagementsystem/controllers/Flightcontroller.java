@@ -1,6 +1,7 @@
-package com.example.demo.contoller;
+package com.example.flightmanagementsystem.controllers;
 
 import java.util.List;
+
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,10 +13,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.Flight;
-import com.example.demo.exception.FlightNotFoundException;
-import com.example.demo.exception.ListEmptyException;
-import com.example.demo.service.Flightservice;
+import com.example.flightmanagementsystem.entity.Flight;
+import com.example.flightmanagementsystem.exceptions.FlightNotFoundException;
+import com.example.flightmanagementsystem.exceptions.ListEmptyException;
+import com.example.flightmanagementsystem.services.Flightservice;
 
 @RestController
 public class Flightcontroller {
@@ -41,7 +42,7 @@ public class Flightcontroller {
    	   }
 
    	 @GetMapping(value="/viewFlights")
-	    public List<Flight> fetchflightList() 
+	    public List<Flight> fetchflightList() throws ListEmptyException 
 	    {   
 		 if(flightservice.fetchFlightList().isEmpty()) throw new ListEmptyException();
 	  	 	return flightservice.fetchFlightList();

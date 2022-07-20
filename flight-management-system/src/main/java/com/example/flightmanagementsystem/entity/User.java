@@ -66,9 +66,8 @@ public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPho
 		this.password = password;
 	}
 	
-	/*
-	 * public String getUserId() { return userId; } 
-	 */
+	 public String getUserId() { return userId; } 
+	 
 	public void setUserId(String userId) { 
   this.userId = userId; 
   }
