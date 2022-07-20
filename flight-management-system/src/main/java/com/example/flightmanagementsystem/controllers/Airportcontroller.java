@@ -1,6 +1,5 @@
 package com.example.flightmanagementsystem.controllers;
 import java.util.List;
-
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,7 +16,7 @@ import com.example.flightmanagementsystem.services.Airportservice;
 @RestController
 public class Airportcontroller {
  @Autowired
- private com.example.flightmanagementsystem.services.Airportservice airportservice;
+ private Airportservice airportservice;
  @PostMapping(value="/flight/addAirport",consumes = "application/json")
  public String addAirport(@RequestBody Airport airport) {
  Random rand = new Random();
@@ -38,7 +37,7 @@ public class Airportcontroller {
 		System.out.println("Fetched Successfully");
 		return airportservice.viewairportById(airportId);
 	}
- @DeleteMapping(value="/delete/{airportId}")
+ @DeleteMapping(value="/delete/{airportName}")
  public String deleteAirport(@PathVariable String airportName)  {
  airportservice.removeAirportName(airportName);
  return "Deleted Successfully";
