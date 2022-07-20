@@ -23,16 +23,22 @@ public class UserServiceImpl implements UserService {
 		if(user.getPassword().isEmpty()|| user.getUserType().isEmpty()|| user.getPhoneNo().isEmpty()|| user.getUserEmail().isEmpty()|| user.getUserName().isEmpty()) {
 			return "Please fill all feilds";
 		}
+		else if(user.getPhoneNo().length()>10||user.getPhoneNo().length()<10){
+			return "Invalid Phone number";	
+		}
+		else if(!(user.getUserEmail().contains("@gmail.com"))) {
+			return "Invalid Email Id";
+		}
 		else {
 			usr.save(user);
-			return "User Added Successfully"+user.getUserId();
+			return "User Added Successfully "+user.getUserId();
 		}
 	}
 
 	@Override
 	public String viewUser(String userId) throws RecordNotFoundException {
 		if (usr.existsById(userId)) {
-			return "User Found"+usr.findByUserId(userId);
+			return "User Found "+usr.findByUserId(userId);
 		}
 		else
 			return "UserID Not Found";
@@ -40,15 +46,13 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean removeUser(String userId) {
-		if (usr.existsById(userId)) {
 			User user = usr.getReferenceById(userId);
-			// if (user.getUserType() == "Admin") {
+			if (usr.existsById(userId)&&user.getUserType() == "Admin") {
 			usr.deleteById(userId);
 			return true;
-			// }
-		} else {
+			 }
+		 else {
 			return false;
-			// throw new RecordNotFoundException("Record not found");
 		}
 
 	}
@@ -61,18 +65,27 @@ public class UserServiceImpl implements UserService {
 			}
 		}
 		return "Please Check Credentials";
-		//throw new InvalidCredentialsException("Please Check Credentials");
 	}
 
 	@Override
 	public String updateUser(String userId,User user) {
-		if (usr.existsById(userId)) {
-			usr.save(user);
-			return "Updated"+usr.findByUserId(userId);
-		}
-		else
+		if (!(usr.existsById(userId))) {
 			return "UserID Not Found";
+		}
+		else if(user.getPassword().isEmpty()|| user.getUserType().isEmpty()|| user.getPhoneNo().isEmpty()|| user.getUserEmail().isEmpty()|| user.getUserName().isEmpty()) {
+			return "Please fill all feilds";
+		}
+		else if(user.getPhoneNo().length()>10||user.getPhoneNo().length()<10){
+			return "Invalid Phone number";	
+		}
+		else if(!(user.getUserEmail().contains("@gmail.com"))) {
+			return "Invalid Email Id";
+		}
 		
+		else {
+		usr.save(user);
+		return "Updated "+usr.findByUserId(userId);
+		}
 	}
 	
 }
