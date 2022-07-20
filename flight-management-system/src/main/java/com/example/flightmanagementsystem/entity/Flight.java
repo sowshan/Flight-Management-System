@@ -1,35 +1,72 @@
 package com.example.flightmanagementsystem.entity;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-
+import lombok.Data;
 @Entity
-@Table(name = "flight")
+
+
+@Table(name="Flight_Info")
+@Data
 public class Flight {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer flightId;
-	private String carrierName;
-	private String flightModel;
-	private int seatCapacity;
-	/*
-	 * public Flight() { super(); // TODO Auto-generated constructor stub } public
-	 * Flight(Integer flightId, String carrierName, String flightModel, int
-	 * seatCapacity) { super(); this.flightId = flightId; this.carrierName =
-	 * carrierName; this.flightModel = flightModel; this.seatCapacity =
-	 * seatCapacity; }
-	 * 
-	 * @Override public String toString() { return "Flight [flightId=" + flightId +
-	 * ", carrierName=" + carrierName + ", flightModel=" + flightModel +
-	 * ", seatCapacity=" + seatCapacity + "]"; } public Integer getFlightId() {
-	 * return flightId; } public void setFlightId(Integer flightId) { this.flightId
-	 * = flightId; } public String getCarrierName() { return carrierName; } public
-	 * void setCarrierName(String carrierName) { this.carrierName = carrierName; }
-	 * public String getFlightModel() { return flightModel; } public void
-	 * setFlightModel(String flightModel) { this.flightModel = flightModel; } public
-	 * int getSeatCapacity() { return seatCapacity; } public void
-	 * setSeatCapacity(int seatCapacity) { this.seatCapacity = seatCapacity; }
-	 */}
+ @Id
+ //@GeneratedValue(strategy = GenerationType.IDENTITY)
+
+ private String flightId;
+ private String carrierName;
+ private String flightModel;
+ private int seatCapacity;
+/**
+ * @return the flightId
+ */
+public String getFlightId() {
+	return flightId;
+}
+/**
+ * @param flightId the flightId to set
+ */
+public void setFlightId(String flightId) {
+	this.flightId = flightId;
+}
+/**
+ * @return the carrierName
+ */
+public String getCarrierName() {
+	return carrierName;
+}
+/**
+ * @param carrierName the carrierName to set
+ */
+public void setCarrierName(String carrierName) {
+	this.carrierName = carrierName;
+}
+/**
+ * @return the flightModel
+ */
+public String getFlightModel() {
+	return flightModel;
+}
+/**
+ * @param flightModel the flightModel to set
+ */
+public void setFlightModel(String flightModel) {
+	this.flightModel = flightModel;
+}
+/**
+ * @return the seatCapacity
+ */
+public int getSeatCapacity() {
+	return seatCapacity;
+}
+/**
+ * @param seatCapacity the seatCapacity to set
+ */
+public void setSeatCapacity(int seatCapacity) {
+	this.seatCapacity = seatCapacity;
+}
+ 
+ 
+}
+

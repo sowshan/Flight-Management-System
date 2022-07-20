@@ -1,3 +1,4 @@
+
 package com.example.flightmanagementsystem.entity;
 
 import java.math.BigInteger;
@@ -68,8 +69,11 @@ public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPho
 	/*
 	 * public String getUserId() { return userId; } 
 	 */
-	public void setUserId(String userId) { this.userId = userId; }
+	public void setUserId(String userId) { 
+  this.userId = userId; 
+  }
 	 
 	
 	
 }
+
