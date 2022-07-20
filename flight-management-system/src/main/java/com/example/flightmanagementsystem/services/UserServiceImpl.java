@@ -19,13 +19,23 @@ public class UserServiceImpl implements UserService {
 	private UserRepo usr;
 
 	@Override
-	public User addUser(User user) {
-		return usr.save(user);
+	public String addUser(User user) {
+		if(user.getPassword().isEmpty()|| user.getUserType().isEmpty()|| user.getPhoneNo().isEmpty()|| user.getUserEmail().isEmpty()|| user.getUserName().isEmpty()) {
+			return "Please fill all feilds";
+		}
+		else {
+			usr.save(user);
+			return "User Added Successfully";
+		}
 	}
 
 	@Override
-	public User viewUser(String userId) throws RecordNotFoundException {
-		return usr.findByUserId(userId);
+	public Object viewUser(String userId) throws RecordNotFoundException {
+		if (usr.existsById(userId)) {
+			return usr.findByUserId(userId);
+		}
+		else
+			return "UserID Not Found";
 	}
 
 	@Override
@@ -58,4 +68,5 @@ public class UserServiceImpl implements UserService {
 	public User updateUser(User user) {
 		return usr.save(user);
 	}
+	
 }
