@@ -1,5 +1,7 @@
 package com.example.flightmanagementsystem.entity;
 
+import java.math.BigInteger;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -11,7 +13,8 @@ public class User {
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String userId;
 	@Column
-	private Integer phoneNo;
+	@Size(min=10,max=10,message="Invalid Phone Number")
+	private String phoneNo;
 	@Column
 	@Email
 	@NotBlank
@@ -23,10 +26,10 @@ public class User {
 	@Column
 	private String password;
 
-public Integer getPhoneNo() {
+public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPhoneNo() {
 		return phoneNo;
 	}
-	public void setPhoneNo(Integer phoneNo) {
+	public void setPhoneNo(@Size(min = 10, max = 10, message = "Invalid Phone Number") String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 	public String getUserEmail() {
@@ -54,13 +57,11 @@ public Integer getPhoneNo() {
 		this.password = password;
 	}
 	
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
+	/*
+	 * public String getUserId() { return userId; } 
+	 */
+	public void setUserId(String userId) { this.userId = userId; }
+	 
 	
 	
 }

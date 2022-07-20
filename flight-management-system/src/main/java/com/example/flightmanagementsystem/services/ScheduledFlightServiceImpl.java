@@ -60,10 +60,10 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 	 */
 	public String removeScheduledFlight(String flightId) throws RecordNotFoundException {
 		if (flightId == null)
-			throw new RecordNotFoundException("Enter flight Id");
+			throw new RecordNotFoundException(/*"Enter flight Id"*/);
 		Optional<ScheduledFlight> scheduleFlight = dao.findById(flightId);
 		if (!scheduleFlight.isPresent())
-			throw new RecordNotFoundException("Enter a valid Flight Id");
+			throw new RecordNotFoundException(/*"Enter a valid Flight Id"*/);
 		else {
 			// try {
 			// cancelBookings(flightId);

@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.flightmanagementsystem.entity.Airport;
+import com.example.flightmanagementsystem.entity.Flight;
 import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
+import com.example.flightmanagementsystem.exceptions.FlightNotFoundException;
 import com.example.flightmanagementsystem.services.Airportservice;
 
 @RestController
@@ -41,12 +43,11 @@ public class AirportController {
 	}
     
 	@GetMapping("/viewAirportById/{airportId}")
-    public Airport viewAirport(@PathVariable String airportId) throws AirportNotFoundException {
-    	if(airportservice.viewByAirportId(airportId)==null) {
-    		System.out.println("Invalid Airport code");
-    		throw new AirportNotFoundException();
-    	}
-		return airportservice.viewByAirportId(airportId);
+    public List<Airport> viewAirport(@PathVariable String airportId) throws AirportNotFoundException {
+    	if(airportservice.viewByAirportId(airportId)==null) throw new AirportNotFoundException();
+    		//System.out.println("Invalid Airport code");
+    	System.out.println("Fetched Successfully");
+		return (List<Airport>) airportservice.viewByAirportId(airportId);
 		
     }
 	@DeleteMapping(value="/delete/{airportId}")

@@ -13,25 +13,28 @@ public class Flightservice {
 
 	@Autowired
 	private Flightrepo flightrepo;
-	
-	
-		public Flight addflight(Flight flight) {
 
-			return  flightrepo.save(flight);
-		}
-		 public List<Flight> fetchFlightList() {
-		 return flightrepo.findAll();
-		 }
-		 public Flight viewFlightById(String flightId)  {
-			 return flightrepo.findByFlightId(flightId);
-			 }
-			public Flight modifyFlight(Flight flight) {
+	public Flight addflight(Flight flight) {
 
-				return  flightrepo.save(flight);
-			}
-public int deleteFlight(String flightId) {
-				
-				flightrepo.deleteById(flightId);
-				return 1;
-			}
+		return flightrepo.save(flight);
+	}
+
+	public List<Flight> fetchFlightList() {
+		return flightrepo.findAll();
+	}
+
+	public Flight viewFlightById(String flightId) {
+		return flightrepo.findByFlightId(flightId);
+	}
+
+	public Flight modifyFlight(Flight flight) {
+
+		return flightrepo.save(flight);
+	}
+
+	public int deleteFlight(String flightId) {
+
+		flightrepo.deleteById(flightId);
+		return 1;
+	}
 }

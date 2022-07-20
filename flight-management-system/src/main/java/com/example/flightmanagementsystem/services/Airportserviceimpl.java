@@ -23,7 +23,7 @@ public class Airportserviceimpl implements Airportservice{
 	}
 
 	@Override
-	public Airport viewByAirportId(String airportId) throws AirportNotFoundException {
+	public Airport viewByAirportId(String airportId)  {
 		return airportrepo.findByAirportId(airportId);
 	}
 

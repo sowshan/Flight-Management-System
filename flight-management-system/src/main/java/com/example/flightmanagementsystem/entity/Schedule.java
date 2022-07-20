@@ -26,6 +26,19 @@ public class Schedule {
 	private Airport destinationAirport;
 	private LocalDateTime airrivalTime;
 	private LocalDateTime departureTime;
+	private Integer ticketcost;
+	/**
+	 * @return the ticketcost
+	 */
+	public Integer getTicketcost() {
+		return ticketcost;
+	}
+	/**
+	 * @param ticketcost the ticketcost to set
+	 */
+	public void setTicketcost(Integer ticketcost) {
+		this.ticketcost = ticketcost;
+	}
 	/**
 	 * @return the scheduleID
 	 */

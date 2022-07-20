@@ -14,6 +14,6 @@ public interface Airportservice {
 	Airport modifyAirport(Airport airport);
 	int removeAirport(String airportId) throws AirportNotFoundException;
 	public List<Airport> viewAllAirport();
-	public Airport viewByAirportId(String airportId)throws AirportNotFoundException;
+	public Airport viewByAirportId(String airportId);
 	
 }
