@@ -1,3 +1,4 @@
+
 package com.example.flightmanagementsystem.entity;
 
 import java.math.BigInteger;
@@ -13,17 +14,25 @@ public class User {
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String userId;
 	@Column
+	@NotNull
+	@NotBlank(message="Please enter a phone number")
 	@Size(min=10,max=10,message="Invalid Phone Number")
 	private String phoneNo;
 	@Column
-	@Email
-	@NotBlank
+	@Email(message="invalid Email id")
+	@NotBlank(message="Email cannot be blank")
 	private String userEmail;
 	@Column
+	@NotNull
+	@NotBlank(message="Please enter a name")
 	private String userName;
 	@Column
+	@NotNull
+	@NotBlank(message="Please enter usertype")
 	private String userType;
 	@Column
+	@NotNull
+	@NotBlank(message="Please enter a password")
 	private String password;
 
 public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPhoneNo() {
@@ -60,8 +69,11 @@ public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPho
 	/*
 	 * public String getUserId() { return userId; } 
 	 */
-	public void setUserId(String userId) { this.userId = userId; }
+	public void setUserId(String userId) { 
+  this.userId = userId; 
+  }
 	 
 	
 	
 }
+
