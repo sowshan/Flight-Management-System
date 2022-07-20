@@ -42,11 +42,10 @@ public class UserController {
 	}
 
 	@PutMapping("/users/{id}")
-	public ResponseEntity<User> updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
+	public String updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
 			throws RecordNotFoundException {
 		
-		final User updatedUser = userService.updateUser(user);
-		return ResponseEntity.ok(updatedUser);
+		return userService.updateUser(userId,user);
 	}
 	/*public ResponseEntity<User> updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
 			throws RecordNotFoundException {
@@ -79,10 +78,10 @@ public class UserController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/searchUser/{id}")
 	// @ExceptionHandler(RecordNotFoundException.class)
-	public List<User> searchUserByID(@PathVariable("id") String userId) throws RecordNotFoundException {
+	public String searchUserByID(@PathVariable("id") String userId) throws RecordNotFoundException {
 		//userService.viewUser(userId);
 		// throw new RecordNotFoundException();
-		return (List<User>) userService.viewUser(userId);
+		return  userService.viewUser(userId);
 
 	}
 
