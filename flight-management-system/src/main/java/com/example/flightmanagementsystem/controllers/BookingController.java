@@ -2,6 +2,7 @@ package com.example.flightmanagementsystem.controllers;
 
 import java.util.ArrayList;
 
+
 import java.util.List;
 import java.util.Random;
 
@@ -18,9 +19,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.bmsrestfulapi.entities.AccountInfo;
-import com.bmsrestfulapi.entities.Login;
-import com.bmsrestfulapi.entities.Role;
 import com.example.flightmanagementsystem.entity.Airport;
 import com.example.flightmanagementsystem.entity.Booking;
 import com.example.flightmanagementsystem.entity.Flight;
@@ -40,7 +38,8 @@ public class BookingController {
 		booking.setBookingId(resRandom);
 		bookingService.addBooking(booking);
 		 return "Added Successfully";
-		 Role r = new Role(user);
+	}
+		/* Role r = new Role(user);
 			AccountInfo ai = new AccountInfo(user);
 			List<AccountInfo> accountList = new ArrayList<>();
 			accountList.add(ai);
@@ -50,11 +49,8 @@ public class BookingController {
 			user.setLogin(l);
 			user.setAccountList(accountList);
 
-			return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);
-
-
-		
-	}
+			return new ResponseEntity<>(userService.createUser(user), HttpStatus.CREATED);	
+	}*/
 	
 	@RequestMapping(value = "/Booking/modify", method = RequestMethod.POST)
 	 public ResponseEntity<Booking> modifyBooking(@RequestBody Booking booking) {
