@@ -1,5 +1,7 @@
 package com.example.flightmanagementsystem.entity;
 
+import java.math.BigInteger;
+
 import javax.persistence.*;
 import javax.validation.constraints.*;
 
@@ -8,25 +10,34 @@ import javax.validation.constraints.*;
 @Table(name = "users")
 public class User {
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String userId;
 	@Column
-	private Integer phoneNo;
+	@NotNull
+	@NotBlank(message="Please enter a phone number")
+	@Size(min=10,max=10,message="Invalid Phone Number")
+	private String phoneNo;
 	@Column
-	@Email
-	@NotBlank
+	@Email(message="invalid Email id")
+	@NotBlank(message="Email cannot be blank")
 	private String userEmail;
 	@Column
+	@NotNull
+	@NotBlank(message="Please enter a name")
 	private String userName;
 	@Column
+	@NotNull
+	@NotBlank(message="Please enter usertype")
 	private String userType;
 	@Column
+	@NotNull
+	@NotBlank(message="Please enter a password")
 	private String password;
 
-public Integer getPhoneNo() {
+public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPhoneNo() {
 		return phoneNo;
 	}
-	public void setPhoneNo(Integer phoneNo) {
+	public void setPhoneNo(@Size(min = 10, max = 10, message = "Invalid Phone Number") String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 	public String getUserEmail() {
@@ -53,21 +64,12 @@ public Integer getPhoneNo() {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	public Boolean getLoginStatus() {
-		return loginStatus;
-	}
-	public void setLoginStatus(Boolean loginStatus) {
-		this.loginStatus = loginStatus;
-	}
-	private Boolean loginStatus;
 	
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
+	/*
+	 * public String getUserId() { return userId; } 
+	 */
+	public void setUserId(String userId) { this.userId = userId; }
+	 
 	
 	
 }
