@@ -25,14 +25,14 @@ public class UserServiceImpl implements UserService {
 		}
 		else {
 			usr.save(user);
-			return "User Added Successfully";
+			return "User Added Successfully"+user.getUserId();
 		}
 	}
 
 	@Override
-	public Object viewUser(String userId) throws RecordNotFoundException {
+	public String viewUser(String userId) throws RecordNotFoundException {
 		if (usr.existsById(userId)) {
-			return usr.findByUserId(userId);
+			return "User Found"+usr.findByUserId(userId);
 		}
 		else
 			return "UserID Not Found";
@@ -65,8 +65,14 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public User updateUser(User user) {
-		return usr.save(user);
+	public String updateUser(String userId,User user) {
+		if (usr.existsById(userId)) {
+			usr.save(user);
+			return "Updated"+usr.findByUserId(userId);
+		}
+		else
+			return "UserID Not Found";
+		
 	}
 	
 }
