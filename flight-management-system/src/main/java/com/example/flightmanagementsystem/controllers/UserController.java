@@ -28,19 +28,27 @@ public class UserController {
 
 	@PostMapping(value = "/createUser", consumes = "application/json")
 	public String addUser(@RequestBody User newUser)
-			throws com.example.flightmanagementsystem.exceptions.UserNotCreatedException {
+			 {
 		Random rand = new Random();
 		Integer resRandom = rand.nextInt((9999 - 100) + 1) + 10;
-		String userid = newUser.getUserName().substring(0, 2) + Integer.toString(resRandom);
+		String userid =Integer.toString(resRandom);
 		newUser.setUserId(userid);
 
-		userService.addUser(newUser);
-		return "Added Successfully!!\nYour UserId is " + userid;
+		return  userService.addUser(newUser);
+		//return "Added Successfully!!\nYour UserId is " + userid;
+		 
+
 
 	}
 
 	@PutMapping("/users/{id}")
 	public ResponseEntity<User> updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
+			throws RecordNotFoundException {
+		
+		final User updatedUser = userService.updateUser(user);
+		return ResponseEntity.ok(updatedUser);
+	}
+	/*public ResponseEntity<User> updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
 			throws RecordNotFoundException {
 		User user1;
 		user1 = userService.viewUser(userId);
@@ -49,7 +57,7 @@ public class UserController {
 		user1.setUserName(user.getUserName());
 		final User updatedUser = userService.updateUser(user1);
 		return ResponseEntity.ok(updatedUser);
-	}
+	}*/
 
 	@PostMapping(value = "/users/login")
 	public ResponseEntity<String> loginUser(@RequestParam String userId, @RequestParam String password)
@@ -68,6 +76,7 @@ public class UserController {
 	 * }
 	 */
 
+	@SuppressWarnings("unchecked")
 	@GetMapping("/searchUser/{id}")
 	// @ExceptionHandler(RecordNotFoundException.class)
 	public List<User> searchUserByID(@PathVariable("id") String userId) throws RecordNotFoundException {
@@ -79,7 +88,13 @@ public class UserController {
 
 	@DeleteMapping("/deleteUser/{id}")
 	// @ExceptionHandler(RecordNotFoundException.class)
-	public void deleteBookingByID(@PathVariable("id") String userId) {
-		userService.removeUser(userId);
+	public String deleteBookingByID(@PathVariable("id") String userId) {
+		boolean x = userService.removeUser(userId);
+		if (x) {
+			return "Deleted Successfully";
+		}
+		else {
+			return "UserId Not Found";
+		}
 	}
 }
