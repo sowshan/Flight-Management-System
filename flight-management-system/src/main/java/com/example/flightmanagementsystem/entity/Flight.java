@@ -12,7 +12,12 @@ import lombok.Data;
 @Table(name="Flight_Info")
 @Data
 public class Flight {
- @Id
+ @Override
+	public String toString() {
+		return "Flight [flightId=" + flightId + ", carrierName=" + carrierName + ", flightModel=" + flightModel
+				+ ", seatCapacity=" + seatCapacity + "]";
+	}
+@Id
  //@GeneratedValue(strategy = GenerationType.IDENTITY)
 
  private String flightId;

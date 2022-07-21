@@ -49,8 +49,8 @@ public class Airportcontroller {
 		return airportservice.removeAirportId(airportId);
 	}
 
-	@PutMapping(value = "/updateAirport")
-	public String updateAirport(@PathVariable String airportId, @RequestBody Airport airport) {
+	@PutMapping(value = "/updateAirport/{airportId}")
+	public String updateAirport(@PathVariable (value="airportId")String airportId, @RequestBody Airport airport) {
 		return airportservice.modifyAirport(airportId, airport);
 	}
 

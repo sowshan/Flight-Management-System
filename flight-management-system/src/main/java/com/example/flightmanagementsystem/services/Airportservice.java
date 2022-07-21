@@ -58,7 +58,7 @@ public class AirportService {
 	        airport1.setAirportName(airport.getAirportName());
 	        airport1.setAirportLocation(airport.getAirportLocation());
 	        airportrepo.save(airport1);
-			return "Airport Updated Successfully";
+			return "Airport Updated Successfully\n"+airport1;
 		    }
 		}
 		else return "Airport Id not Found";

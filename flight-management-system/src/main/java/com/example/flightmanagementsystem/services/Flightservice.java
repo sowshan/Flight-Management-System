@@ -55,6 +55,7 @@ public class Flightservice {
 				flight1.setCarrierName(flight.getCarrierName());
 				flight.setFlightModel(flight.getFlightModel());
 				flight1.setSeatCapacity(flight.getSeatCapacity());
+				flightrepo.save(flight1);
 				return "Updated " + flight1;
 			}
 		} 

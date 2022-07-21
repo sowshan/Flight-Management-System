@@ -68,8 +68,8 @@ public class Flightcontroller {
 		else return "Flight Id not found";
 	}
 
-	@PutMapping(value = "/updateFlight")
-	public String modifyflight(@PathVariable("flightId") String flightId, @RequestBody Flight flight) {
+	@PutMapping(value = "/updateFlight/{flightId}")
+	public String modifyflight(@PathVariable(value="flightId") String flightId, @RequestBody Flight flight) {
 		return flightservice.modifyFlight(flightId, flight);
 	}
 }
