@@ -21,6 +21,10 @@ public class ExceptionController {
 	public ResponseEntity<Object> RecordNotFoundException(RecordNotFoundException exception){
 		return new ResponseEntity<Object>("Record not found", HttpStatus.NOT_FOUND);
 	}
+	@ExceptionHandler(value = ListEmptyException.class)
+	public ResponseEntity<Object> ListEmptyException(ListEmptyException exception){
+		return new ResponseEntity<Object>("List not found", HttpStatus.NOT_FOUND);
+	}
 	
 	
 	/*
