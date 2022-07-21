@@ -9,7 +9,7 @@ import com.example.flightmanagementsystem.entity.Flight;
 
 
 public interface Flightrepo extends JpaRepository<Flight,String> {
-	Flight findByFlightId(String userId);
+	List<Flight> findByFlightId(String userId);
    // String deleteByFlightId(String flightId);
 //	List<Flight> findByName(String name);
 	

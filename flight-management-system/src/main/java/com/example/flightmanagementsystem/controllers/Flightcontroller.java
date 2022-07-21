@@ -20,6 +20,7 @@ import com.example.flightmanagementsystem.entity.User;
 import com.example.flightmanagementsystem.exceptions.FlightNotFoundException;
 import com.example.flightmanagementsystem.exceptions.ListEmptyException;
 import com.example.flightmanagementsystem.exceptions.RecordNotFoundException;
+
 import com.example.flightmanagementsystem.services.Flightservice;
 
 @RestController
@@ -41,6 +42,7 @@ public class Flightcontroller {
    	   }
    	 @GetMapping(value="/viewFlights")
 	    public List<Flight> viewAllFlights() throws ListEmptyException 
+
 	    {   
 		 if(flightservice.viewAllFlights().isEmpty()) throw new ListEmptyException();
 	  	 	return flightservice.viewAllFlights();	  	 	

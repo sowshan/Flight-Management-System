@@ -2,8 +2,8 @@ package com.example.flightmanagementsystem.repositories;
 
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-import com.example.demo.entity.Airport;
-public interface Airportrepo extends JpaRepository<Airport,String> {
+import com.example.flightmanagementsystem.entity.Airport;
+public interface AirportRepo extends JpaRepository<Airport,String> {
 	List<Airport> findByairportId(String airportID);
 	List<Airport> findByairportName(String aiportName);
    // String deleteByFlightId(String flightId);
@@ -13,4 +13,3 @@ public interface Airportrepo extends JpaRepository<Airport,String> {
 	
 	
 }
-

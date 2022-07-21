@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.example.flightmanagementsystem.entity.Airport;
+import com.example.flightmanagementsystem.entity.Flight;
 import com.example.flightmanagementsystem.entity.Schedule;
 import com.example.flightmanagementsystem.entity.ScheduledFlight;
 import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
@@ -39,25 +41,25 @@ public class ScheduledFlightController {
 	 * Controller for adding Scheduled Flights
 	 */
 	@PostMapping("/add")
-	public ResponseEntity<ScheduledFlight> addSF(@ModelAttribute ScheduledFlight scheduledFlight,
-			@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
+	public ResponseEntity<ScheduledFlight> addSF(@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
 			@RequestParam(name = "deptDateTime") LocalDateTime departureTime, @RequestParam(name = "arrDateTime") LocalDateTime arrivalTime) throws AirportNotFoundException {
+		ScheduledFlight scheduledFlight = new ScheduledFlight();
 		Schedule schedule = new Schedule();
 		schedule.setScheduleID(scheduledFlight.getScheduleFlightId());
 		try {
-			schedule.setSourceAirport(airportService.viewByAirportId(source));
+			schedule.setSourceAirport((Airport) airportService.viewairportByName(source));
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
 		}
 		try {
-			schedule.setDestinationAirport(airportService.viewByAirportId(destination));
+			schedule.setDestinationAirport((Airport) airportService.viewairportByName(destination));
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
 		}
 		schedule.setDepartureTime(departureTime);
 		schedule.setAirrivalTime(arrivalTime);
 		try {
-			scheduledFlight.setFlight(flightService.viewFlightById(scheduledFlight.getScheduleFlightId()));
+			scheduledFlight.setFlight((Flight) flightService.viewFlightById(scheduledFlight.getScheduleFlightId()));
 		} catch (RecordNotFoundException e1) {
 			return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
 		}

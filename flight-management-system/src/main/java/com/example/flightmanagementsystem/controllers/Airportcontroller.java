@@ -1,4 +1,4 @@
-package com.example.demo.contoller;
+package com.example.flightmanagementsystem.controllers;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
-import com.example.demo.entity.Airport;
-import com.example.demo.exception.AirportNotFoundException;
-import com.example.demo.exception.ListEmptyException;
-import com.example.demo.service.Airportservice;
+import com.example.flightmanagementsystem.entity.Airport;
+import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
+import com.example.flightmanagementsystem.exceptions.ListEmptyException;
+import com.example.flightmanagementsystem.services.Airportservice;
 @RestController
 public class Airportcontroller {
  @Autowired
@@ -26,18 +26,18 @@ public class Airportcontroller {
   return "Added Successfully";
  }
  @GetMapping("/viewAirport")
-  public List<Airport> viewAirport() {
+  public List<Airport> viewAirport() throws ListEmptyException {
 	 if(airportservice.viewAllAirport().isEmpty()) throw new ListEmptyException();
  return airportservice.viewAllAirport();
  }
 	@GetMapping(value= "/viewAirportById/{airportId}")
-	public List<Airport> viewAirportByID(@PathVariable("airportId")String airportId)
+	public List<Airport> viewAirportByID(@PathVariable("airportId")String airportId) throws AirportNotFoundException
 	{ 
 		if(airportservice.viewairportById(airportId).isEmpty()) throw new AirportNotFoundException();
 		System.out.println("Fetched Successfully");
 		return airportservice.viewairportById(airportId);
 	}
- @DeleteMapping(value="/delete/{airportId}")
+ @DeleteMapping(value="/delete/{airportName}")
  public String deleteAirport(@PathVariable String airportName)  {
  airportservice.removeAirportName(airportName);
  return "Deleted Successfully";

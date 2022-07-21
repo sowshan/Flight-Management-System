@@ -1,13 +1,13 @@
-package com.example.demo.service;
+package com.example.flightmanagementsystem.services;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.example.demo.entity.Airport;
-import com.example.demo.repo.Airportrepo;
+import com.example.flightmanagementsystem.entity.Airport;
+import com.example.flightmanagementsystem.repositories.AirportRepo;
 @Service
 public class Airportservice {
  @Autowired
- private Airportrepo airportrepo;
+ private AirportRepo airportrepo;
  public List<Airport> viewAllAirport() {
  return airportrepo.findAll();
  }
