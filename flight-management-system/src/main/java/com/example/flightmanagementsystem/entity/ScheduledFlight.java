@@ -1,6 +1,7 @@
 package com.example.flightmanagementsystem.entity;
 
 import java.math.BigInteger;
+import java.sql.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -8,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -25,45 +27,50 @@ public class ScheduledFlight {
 	@Column(name = "schedule_flight_id")
 	private String scheduleFlightId;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@NotNull
-	private Flight flight;
-
 	@Column(name = "available_seats")
 	@NotNull
 	private Integer availableSeats;
-
-	@NotNull
-	@OneToOne(cascade = CascadeType.ALL)
-	public Schedule schedule;
-
-	/*
-	 * Default constructor
-	 */
-	public ScheduledFlight() {
-
-	}
 	
+	@Column(name = "available_date")
+	@NotNull
+	private Date availableDate;
+	
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn (name="flightId")
+	private Flight flight;
+
+	@OneToOne(cascade = CascadeType.MERGE)
+	@JoinColumn(name="scheduleID")
+	public static Schedule schedule;
+
+	/**
+	 * @return the scheduleFlightId
+	 */
 	public String getScheduleFlightId() {
 		return scheduleFlightId;
 	}
 
+	/**
+	 * @param scheduleFlightId the scheduleFlightId to set
+	 */
 	public void setScheduleFlightId(String scheduleFlightId) {
 		this.scheduleFlightId = scheduleFlightId;
 	}
 
-	/*
-	 * Getter and setter for Available seats
+	/**
+	 * @return the availableSeats
 	 */
-	public int getAvailableSeats() {
+	public Integer getAvailableSeats() {
 		return availableSeats;
 	}
 
-	public void setAvailableSeats(int availableSeats) {
+	/**
+	 * @param availableSeats the availableSeats to set
+	 */
+	public void setAvailableSeats(Integer availableSeats) {
 		this.availableSeats = availableSeats;
 	}
 
-	
 	/**
 	 * @return the flight
 	 */
@@ -74,14 +81,14 @@ public class ScheduledFlight {
 	/**
 	 * @param flight the flight to set
 	 */
-	public void setFlight( Flight flight) {
+	public void setFlight(Flight flight) {
 		this.flight = flight;
 	}
 
 	/**
 	 * @return the schedule
 	 */
-	public Schedule getSchedule() {
+	public static Schedule getSchedule() {
 		return schedule;
 	}
 
@@ -92,59 +99,11 @@ public class ScheduledFlight {
 		this.schedule = schedule;
 	}
 
-	/**
-	 * @param availableSeats the availableSeats to set
-	 */
-	public void setAvailableSeats(Integer availableSeats) {
-		this.availableSeats = availableSeats;
-	}
-
 	@Override
 	public String toString() {
-		return "ScheduledFlight [scheduleFlightId=" + scheduleFlightId + ", flight=" + flight + ", availableSeats="
-				+ availableSeats + ", schedule=" + schedule + "]";
+		return "ScheduledFlight [scheduleFlightId=" + scheduleFlightId + ", availableSeats=" + availableSeats
+				+ ", flight=" + flight + ", schedule=" + schedule + "]";
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((availableSeats == null) ? 0 : availableSeats.hashCode());
-		result = prime * result + ((flight == null) ? 0 : flight.hashCode());
-		result = prime * result + ((schedule == null) ? 0 : schedule.hashCode());
-		result = prime * result + ((scheduleFlightId == null) ? 0 : scheduleFlightId.hashCode());
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ScheduledFlight other = (ScheduledFlight) obj;
-		if (availableSeats == null) {
-			if (other.availableSeats != null)
-				return false;
-		} else if (!availableSeats.equals(other.availableSeats))
-			return false;
-		if (flight == null) {
-			if (other.flight != null)
-				return false;
-		} else if (!flight.equals(other.flight))
-			return false;
-		if (schedule == null) {
-			if (other.schedule != null)
-				return false;
-		} else if (!schedule.equals(other.schedule))
-			return false;
-		if (scheduleFlightId == null) {
-			if (other.scheduleFlightId != null)
-				return false;
-		} else if (!scheduleFlightId.equals(other.scheduleFlightId))
-			return false;
-		return true;
-	}
+	
+	
 }

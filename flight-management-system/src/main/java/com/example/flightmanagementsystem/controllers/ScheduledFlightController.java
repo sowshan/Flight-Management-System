@@ -1,117 +1,91 @@
 package com.example.flightmanagementsystem.controllers;
 
-import java.math.BigInteger;
-//import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+
 import org.springframework.web.bind.annotation.*;
 
-import com.example.flightmanagementsystem.entity.Airport;
 import com.example.flightmanagementsystem.entity.Flight;
 import com.example.flightmanagementsystem.entity.Schedule;
 import com.example.flightmanagementsystem.entity.ScheduledFlight;
-import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
-import com.example.flightmanagementsystem.exceptions.RecordNotFoundException;
-import com.example.flightmanagementsystem.exceptions.ScheduledFlightNotFoundException;
-import com.example.flightmanagementsystem.repositories.AirportRepo;
-//import com.example.flightmanagementsystem.repositories.AirpotRepo;
+
 import com.example.flightmanagementsystem.services.AirportService;
 import com.example.flightmanagementsystem.services.Flightservice;
+import com.example.flightmanagementsystem.services.ScheduleService;
 import com.example.flightmanagementsystem.services.ScheduledFlightService;
+import com.example.flightmanagementsystem.exceptions.NoScheduleFoundException;
+import com.example.flightmanagementsystem.exceptions.NoFlightOrRouteFoundException;
 
 @RestController
-//@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/scheduledFlight")
-public class ScheduledFlightController {
-	/*
-	 * Creating Service object
-	 */
+public class ScheduledFlightController<SceduleService> {
 	@Autowired
 	ScheduledFlightService scheduleFlightService;
-
 	@Autowired
 	AirportService airportService;
-
 	@Autowired
 	Flightservice flightService;
+	@Autowired
+	ScheduleService scheduleService;
 
 	/*
 	 * Controller for adding Scheduled Flights
 	 */
-	@PostMapping("/add")
-	public ResponseEntity<ScheduledFlight> addSF(@RequestParam(name = "srcAirport") String source,
-			@RequestParam(name = "dstnAirport") String destination,
-			@RequestParam(name = "deptDateDate") String departureDate,
-			@RequestParam(name = "arrDateDate") String arrivalDate) throws AirportNotFoundException {
-		ScheduledFlight scheduledFlight = new ScheduledFlight();
-		Schedule schedule = new Schedule();
-		schedule.setScheduleID(scheduledFlight.getScheduleFlightId());
-		try {
-			// AirportRepo airportrepo;
-			scheduledFlight.schedule.setSourceAirport(source);
-		} catch (RecordNotFoundException e) {
-			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+	@PostMapping(consumes = "application/json",value="/ScheduleFlight")
+	public String addScheduleFlight(@RequestBody ScheduledFlight scheduleFlight) {
+
+		List<Flight> flights = flightService.viewAllFlights();
+		List<Schedule> schedules =scheduleService.viewAllSchedule();
+
+		for(Flight f: flights) {
+			for(Schedule s: schedules) {
+			if(f.getFlightId().equals(scheduleFlight.getFlight().getFlightId())&&s.getScheduleID().equals(ScheduledFlight.getSchedule().getScheduleID())) {
+				scheduleFlight.getFlight().setFlightId(f.getFlightId());
+				scheduleFlight.getSchedule().setScheduleID(s.getScheduleID());
+				Random rand = new Random();
+				int resRandom = rand.nextInt((9999 - 100) + 1) + 10;
+				scheduleFlight.setScheduleFlightId(Integer.toString(resRandom)); 
+				scheduleFlightService.addScheduledFlight(scheduleFlight);
+				return "Added succesfully";	 
+			}
 		}
-		try {
-			scheduledFlight.schedule.setDestinationAirport(destination);
-		} catch (RecordNotFoundException e) {
-			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
+			
 		}
-		scheduledFlight.schedule.setDepartureDate(departureDate);
-		scheduledFlight.schedule.setArrivalDate(arrivalDate);
-		try {
-			scheduledFlight.setFlight((Flight) flightService.viewFlightById(scheduledFlight.getScheduleFlightId()));
-		} catch (RecordNotFoundException e1) {
-			return new ResponseEntity("Flight Not Found", HttpStatus.BAD_REQUEST);
-		}
-		scheduledFlight.setSchedule(schedule);
-		scheduledFlight.setAvailableSeats(scheduledFlight.getFlight().getSeatCapacity());
-		try {
-			return new ResponseEntity<ScheduledFlight>(scheduleFlightService.addScheduledFlight(scheduledFlight),
-					HttpStatus.OK);
-		} catch (Exception e) {
-			return new ResponseEntity("Error adding Flight." + e, HttpStatus.BAD_REQUEST);
-		}
+		throw new NoFlightOrRouteFoundException();
+		
 	}
+
 
 	/*
 	 * Controller for modifying existing Scheduled Flights
 	 */
-	@PutMapping("/modify")
-	public ResponseEntity<ScheduledFlight> modifyScheduleFlight(@ModelAttribute ScheduledFlight scheduleFlight) {
-		ScheduledFlight modifySFlight = scheduleFlightService.modifyScheduledFlight(scheduleFlight);
-		if (modifySFlight == null) {
-			return new ResponseEntity("Flight not modified", HttpStatus.INTERNAL_SERVER_ERROR);
-		} else {
-			return new ResponseEntity<ScheduledFlight>(modifySFlight, HttpStatus.OK);
-		}
-
+	@PutMapping(value="/update/scheduleFlight")
+	public String modifyScheduleFlight(@RequestBody ScheduledFlight scheduleFlight) {
+		scheduleFlightService.modifyScheduledFlight(scheduleFlight);
+		return "Updated Successfully";
 	}
 
 	/*
 	 * Controller for deleting existing Scheduled Flights
 	 */
-	@DeleteMapping("/delete")
-	public String deleteSF(@RequestParam BigInteger flightId) throws RecordNotFoundException {
-		return scheduleFlightService.removeScheduledFlight(flightId);
+	@DeleteMapping(value="/delete/{scheduleFlightID}")
+	public String deleteScheduledFlightById(@PathVariable("scheduleFlightID") String scheduleFlightId) {
+		scheduleFlightService.removeScheduledFlight(scheduleFlightId);
+		return "Deleted Successfully";
 	}
-
 	/*
 	 * Controller for viewing a Scheduled Flight by ID
 	 */
-	@GetMapping("/search")
-	@ExceptionHandler(ScheduledFlightNotFoundException.class)
-	public ResponseEntity<ScheduledFlight> viewSF(@RequestParam BigInteger flightId)
-			throws ScheduledFlightNotFoundException {
-		ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
-		if (searchSFlight == null) {
-			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
-		} else {
-			return new ResponseEntity<ScheduledFlight>(searchSFlight, HttpStatus.OK);
+	@GetMapping(value="/viewById/{scheduleFlightID}")
+	public ScheduledFlight viewById(@PathVariable("scheduleFlightID") String scheduleFlightId ) {
+		
+		if(scheduleFlightService.viewScheduledFlight(scheduleFlightId)==null) {
+			throw new NoScheduleFoundException();
 		}
+		return scheduleFlightService.viewScheduledFlight(scheduleFlightId);
+		
 	}
 
 	/*

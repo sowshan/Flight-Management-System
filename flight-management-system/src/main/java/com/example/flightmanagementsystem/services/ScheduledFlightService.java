@@ -10,9 +10,9 @@ public interface ScheduledFlightService {
 
 	public ScheduledFlight modifyScheduledFlight(ScheduledFlight scheduledFlight);
 
-	public String removeScheduledFlight(BigInteger id) throws RecordNotFoundException;
+	public int removeScheduledFlight(String scheduleFlightId) throws RecordNotFoundException;
 
 	public Iterable<ScheduledFlight> viewAllScheduledFlights();
 
-	public ScheduledFlight viewScheduledFlight(BigInteger id) throws ScheduledFlightNotFoundException;
+	public ScheduledFlight viewScheduledFlight(String scheduleFlightId) throws ScheduledFlightNotFoundException;
 }

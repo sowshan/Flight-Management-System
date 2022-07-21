@@ -1,6 +1,7 @@
 package com.example.flightmanagementsystem.entity;
 
 import java.math.BigInteger;
+
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -9,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,14 +23,15 @@ import lombok.Setter;
 public class Schedule {
 	@Id
 	private String scheduleID;
-	// @OneToOne(cascade = CascadeType.MERGE)
 	private String sourceAirport;
-	// @OneToOne(cascade = CascadeType.MERGE)
 	private String destinationAirport;
-	private String arrivalDate;
-	private String departureDate;
 	private Integer ticketcost;
 
+	/*
+	 * @OneToOne(mappedBy = "schedule",orphanRemoval = true)
+	 * 
+	 * @JsonIgnore private ScheduledFlight scheduledflight;
+	 */
 	/**
 	 * @return the ticketcost
 	 */
@@ -82,34 +86,6 @@ public class Schedule {
 	 */
 	public void setDestinationAirport(String destinationAirport) {
 		this.destinationAirport = destinationAirport;
-	}
-
-	/**
-	 * @return the airrivalDate
-	 */
-	public String getArrivalDate() {
-		return arrivalDate;
-	}
-
-	/**
-	 * @param airrivalDate the airrivalDate to set
-	 */
-	public void setArrivalDate(String arrivalDate) {
-		this.arrivalDate = arrivalDate;
-	}
-
-	/**
-	 * @return the departureDate
-	 */
-	public String getDepartureDate() {
-		return departureDate;
-	}
-
-	/**
-	 * @param departureDate the departureDate to set
-	 */
-	public void setDepartureDate(String departureDate) {
-		this.departureDate = departureDate;
 	}
 
 }
