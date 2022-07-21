@@ -33,12 +33,7 @@ public class UserController {
 		Integer resRandom = rand.nextInt((9999 - 100) + 1) + 10;
 		String userid =Integer.toString(resRandom);
 		newUser.setUserId(userid);
-
 		return  userService.addUser(newUser);
-		//return "Added Successfully!!\nYour UserId is " + userid;
-		 
-
-
 	}
 
 	@PutMapping("/update/{id}")
@@ -46,33 +41,12 @@ public class UserController {
 			{
 		return userService.updateUser(userId,user);
 	}
-	/*public ResponseEntity<User> updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
-			throws RecordNotFoundException {
-		User user1;
-		user1 = userService.viewUser(userId);
-		user1.setUserEmail(user.getUserEmail());
-		user1.setPhoneNo(user.getPhoneNo());
-		user1.setUserName(user.getUserName());
-		final User updatedUser = userService.updateUser(user1);
-		return ResponseEntity.ok(updatedUser);
-	}*/
 
 	@PostMapping(value = "/users/login")
 	public ResponseEntity<String> loginUser(@RequestParam String userId, @RequestParam String password)
 			throws InvalidCredentialsException {
 		return new ResponseEntity<>(userService.login(userId, password), HttpStatus.FOUND);
 	}
-
-	/*
-	 * @PutMapping("/updateUser/{id}")
-	 * 
-	 * @ExceptionHandler(RecordNotFoundException.class) public
-	 * ResponseEntity<String> updateUser(@PathVariable("id") String userId) {
-	 * 
-	 * userService.updateUser(userId); return new ResponseEntity<>(HttpStatus.OK);
-	 * 
-	 * }
-	 */
 
 	@SuppressWarnings("unchecked")
 	@GetMapping("/searchUser/{id}")

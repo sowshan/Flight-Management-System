@@ -1,7 +1,7 @@
 package com.example.flightmanagementsystem.entity;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,85 +20,96 @@ import lombok.Setter;
 public class Schedule {
 	@Id
 	private String scheduleID;
-	@OneToOne(cascade = CascadeType.MERGE)
-	private Airport sourceAirport;
-	@OneToOne(cascade = CascadeType.MERGE)
-	private Airport destinationAirport;
-	private LocalDateTime airrivalTime;
-	private LocalDateTime departureTime;
+	// @OneToOne(cascade = CascadeType.MERGE)
+	private String sourceAirport;
+	// @OneToOne(cascade = CascadeType.MERGE)
+	private String destinationAirport;
+	private String arrivalDate;
+	private String departureDate;
 	private Integer ticketcost;
+
 	/**
 	 * @return the ticketcost
 	 */
 	public Integer getTicketcost() {
 		return ticketcost;
 	}
+
 	/**
 	 * @param ticketcost the ticketcost to set
 	 */
 	public void setTicketcost(Integer ticketcost) {
 		this.ticketcost = ticketcost;
 	}
+
 	/**
 	 * @return the scheduleID
 	 */
 	public String getScheduleID() {
 		return scheduleID;
 	}
+
 	/**
-	 * @param string  the scheduleID to set
+	 * @param string the scheduleID to set
 	 */
-	public void setScheduleID(String string ) {
-		this.scheduleID = string ;
+	public void setScheduleID(String string) {
+		this.scheduleID = string;
 	}
+
 	/**
 	 * @return the sourceAirport
 	 */
-	public Airport getSourceAirport() {
+	public String getSourceAirport() {
 		return sourceAirport;
 	}
+
 	/**
-	 * @param sourceAirport the sourceAirport to set
+	 * @param source the sourceAirport to set
 	 */
-	public void setSourceAirport(Airport sourceAirport) {
-		this.sourceAirport = sourceAirport;
+	public void setSourceAirport(String source) {
+		this.sourceAirport = source;
 	}
+
 	/**
 	 * @return the destinationAirport
 	 */
-	public Airport getDestinationAirport() {
+	public String getDestinationAirport() {
 		return destinationAirport;
 	}
+
 	/**
 	 * @param destinationAirport the destinationAirport to set
 	 */
-	public void setDestinationAirport(Airport destinationAirport) {
+	public void setDestinationAirport(String destinationAirport) {
 		this.destinationAirport = destinationAirport;
 	}
+
 	/**
-	 * @return the airrivalTime
+	 * @return the airrivalDate
 	 */
-	public LocalDateTime getAirrivalTime() {
-		return airrivalTime;
+	public String getArrivalDate() {
+		return arrivalDate;
 	}
+
 	/**
-	 * @param airrivalTime the airrivalTime to set
+	 * @param airrivalDate the airrivalDate to set
 	 */
-	public void setAirrivalTime(LocalDateTime airrivalTime) {
-		this.airrivalTime = airrivalTime;
+	public void setArrivalDate(String arrivalDate) {
+		this.arrivalDate = arrivalDate;
 	}
+
 	/**
-	 * @return the departureTime
+	 * @return the departureDate
 	 */
-	public LocalDateTime getDepartureTime() {
-		return departureTime;
+	public String getDepartureDate() {
+		return departureDate;
 	}
+
 	/**
-	 * @param departureTime the departureTime to set
+	 * @param departureDate the departureDate to set
 	 */
-	public void setDepartureTime(LocalDateTime departureTime) {
-		this.departureTime = departureTime;
+	public void setDepartureDate(String departureDate) {
+		this.departureDate = departureDate;
 	}
-	
-		
+
 }

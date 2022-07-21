@@ -16,9 +16,15 @@ public class Flightservice {
 	@Autowired
 	private Flightrepo flightrepo;
 
-	public Flight addflight(Flight flight) {
-
-		return flightrepo.save(flight);
+	public String addflight(Flight flight) {
+		if (flight.getCarrierName().isEmpty() || flight.getFlightModel().isEmpty()) {
+			return "Please fill all fields";
+		} else if (flight.getSeatCapacity() == 0)
+			return "Seat Capacity can not be zero";
+		else {
+			flightrepo.save(flight);
+			return "Flight Created successfully\nFlight Id is " + flight.getFlightId();
+		}
 	}
 
 	public List<Flight> viewAllFlights() {
@@ -29,35 +35,39 @@ public class Flightservice {
 		return flightrepo.findByFlightId(flightId);
 	}
 
-	/*public boolean modifyFlight(String flightId, Flight flight) {
-		if(flightrepo.existsById(flightId)) {
-			flightrepo.save(flight);
-			return "Updated"+flightrepo.findByFlightId(flightId) != null;
+	/*
+	 * public boolean modifyFlight(String flightId, Flight flight) {
+	 * if(flightrepo.existsById(flightId)) { flightrepo.save(flight); return
+	 * "Updated"+flightrepo.findByFlightId(flightId) != null; } else
+	 * 
+	 * return "Id not found"; }
+	 */
+	public String modifyFlight(String flightId, Flight flight) {
+		if (flightrepo.existsById(flightId)) 
+		{
+			Flight flight1 = flightrepo.getReferenceById(flightId);
+			if (flight.getCarrierName().isEmpty() || flight.getFlightModel().isEmpty()) {
+				return "Please fill all fields";
+			} 
+			else if (flight.getSeatCapacity() == 0)
+				return "Seat Capacity can not be zero";
+			else {
+				flight1.setCarrierName(flight.getCarrierName());
+				flight.setFlightModel(flight.getFlightModel());
+				flight1.setSeatCapacity(flight.getSeatCapacity());
+				return "Updated " + flight1;
+			}
+		} 
+		else {
+			return "FlightID Not Found";
 		}
-		else
-	
-		return "Id not found";
-	}*/
-	public boolean modifyFlight(String flightId,Flight flight) {
-		 if(flight.getFlightId().isEmpty()|| flight.getCarrierName().isEmpty()) {
-				return false;
-			}
-		 else if (flightrepo.existsById(flightId)) {
-					 Optional<Flight> findById = flightrepo.findById(flight.getFlightId());
-						if (findById.isPresent()) {
-					        flightrepo.save(flight);
-					        }
-						return true;
-			}
-		 else {
-			 return false;
-		 }
-	 }
-	
+	}
 
 	public int deleteFlight(String flightId) {
-
-		flightrepo.deleteById(flightId);
-		return 1;
+		if (flightrepo.existsById(flightId)) {
+			flightrepo.deleteById(flightId);
+			return 1;
+		} else
+			return 0;
 	}
 }

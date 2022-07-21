@@ -49,8 +49,8 @@ public class ScheduledFlightServiceImpl implements ScheduledFlightService {
 		updateScheduleFlight.setAvailableSeats(scheduleFlight.getAvailableSeats());
 		updateSchedule.setSourceAirport(scheduleFlight.getSchedule().getSourceAirport());
 		updateSchedule.setDestinationAirport(scheduleFlight.getSchedule().getDestinationAirport());
-		updateSchedule.setAirrivalTime(scheduleFlight.getSchedule().getAirrivalTime());
-		updateSchedule.setDepartureTime(scheduleFlight.getSchedule().getDepartureTime());
+		updateSchedule.setArrivalDate(scheduleFlight.getSchedule().getArrivalDate());
+		updateSchedule.setDepartureDate(scheduleFlight.getSchedule().getDepartureDate());
 		dao.save(updateScheduleFlight);
 		return scheduleFlight;
 	}

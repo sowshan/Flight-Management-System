@@ -76,10 +76,10 @@ public class UserServiceImpl implements UserService {
 			} else if (!(user.getUserEmail().contains("@gmail.com"))) {
 				return "Invalid Email Id";
 			}else {
-			//usr.save(user1);
 			user1.setUserName(user.getUserName());
 			user1.setUserEmail(user.getUserEmail());
 			user1.setPhoneNo(user.getPhoneNo());
+			usr.save(user1);
 			return "Updated " + user1;
 			}
 

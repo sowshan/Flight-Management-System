@@ -1,5 +1,7 @@
 package com.example.flightmanagementsystem.controllers;
+
 import java.util.List;
+
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,69 +14,44 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.flightmanagementsystem.entity.Airport;
 import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
 import com.example.flightmanagementsystem.exceptions.ListEmptyException;
-import com.example.flightmanagementsystem.services.Airportservice;
+import com.example.flightmanagementsystem.services.AirportService;
+
 @RestController
 public class Airportcontroller {
- @Autowired
- private Airportservice airportservice;
- @PostMapping(value="/flight/addAirport",consumes = "application/json")
- public String addAirport(@RequestBody Airport airport) {
- Random rand = new Random();
- int resRandom = rand.nextInt((9999 - 100) + 1) + 10;
- airport.setAirportId(airport.getAirportName().substring(0,2) + Integer.toString(resRandom));
- airportservice.addAirport(airport);
-  return "Added Successfully";
- }
- @GetMapping("/viewAirport")
-  public List<Airport> viewAirport() throws ListEmptyException {
-	 if(airportservice.viewAllAirport().isEmpty()) throw new ListEmptyException();
- return airportservice.viewAllAirport();
- }
-	@GetMapping(value= "/viewAirportById/{airportId}")
-	public List<Airport> viewAirportByID(@PathVariable("airportId")String airportId) throws AirportNotFoundException
-	{ 
-		if(airportservice.viewairportById(airportId).isEmpty()) throw new AirportNotFoundException();
+	@Autowired
+	private AirportService airportservice;
+
+	@PostMapping(value = "/flight/addAirport", consumes = "application/json")
+	public String addAirport(@RequestBody Airport airport) {
+		Random rand = new Random();
+		int resRandom = rand.nextInt((9999 - 100) + 1) + 10;
+		airport.setAirportId(Integer.toString(resRandom));
+		return airportservice.addAirport(airport);
+	}
+
+	@GetMapping("/viewAirport")
+	public List<Airport> viewAirport() throws ListEmptyException {
+		if (airportservice.viewAllAirport().isEmpty())
+			throw new ListEmptyException();
+		return airportservice.viewAllAirport();
+	}
+
+	@GetMapping(value = "/viewAirportById/{airportId}")
+	public String viewAirportByID(@PathVariable("airportId") String airportId) throws AirportNotFoundException {
+		if (airportservice.viewairportById(airportId).isEmpty())
+			throw new AirportNotFoundException();
 		System.out.println("Fetched Successfully");
 		return airportservice.viewairportById(airportId);
 	}
- @DeleteMapping(value="/delete/{airportName}")
- public String deleteAirport(@PathVariable String airportName)  {
- airportservice.removeAirportName(airportName);
- return "Deleted Successfully";
- }
- @PutMapping(value="/updateAirport")
- public String updateAirport(@RequestBody Airport airport) {
-  airportservice.modifyAirport(airport);
-  return "updated successfully";
- }
+
+	@DeleteMapping(value = "/delete/{airportId}")
+	public String deleteAirport(@PathVariable String airportId) {
+		return airportservice.removeAirportId(airportId);
+	}
+
+	@PutMapping(value = "/updateAirport")
+	public String updateAirport(@PathVariable String airportId, @RequestBody Airport airport) {
+		return airportservice.modifyAirport(airportId, airport);
+	}
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

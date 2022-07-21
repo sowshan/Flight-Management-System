@@ -35,7 +35,7 @@ public class ScheduledFlight {
 
 	@NotNull
 	@OneToOne(cascade = CascadeType.ALL)
-	private Schedule schedule;
+	public Schedule schedule;
 
 	/*
 	 * Default constructor

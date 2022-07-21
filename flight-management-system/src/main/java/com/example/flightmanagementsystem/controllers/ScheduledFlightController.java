@@ -1,7 +1,7 @@
 package com.example.flightmanagementsystem.controllers;
 
 import java.math.BigInteger;
-import java.time.LocalDateTime;
+//import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +16,11 @@ import com.example.flightmanagementsystem.entity.ScheduledFlight;
 import com.example.flightmanagementsystem.exceptions.AirportNotFoundException;
 import com.example.flightmanagementsystem.exceptions.RecordNotFoundException;
 import com.example.flightmanagementsystem.exceptions.ScheduledFlightNotFoundException;
-import com.example.flightmanagementsystem.services.Airportservice;
+import com.example.flightmanagementsystem.repositories.AirportRepo;
+//import com.example.flightmanagementsystem.repositories.AirpotRepo;
+import com.example.flightmanagementsystem.services.AirportService;
 import com.example.flightmanagementsystem.services.Flightservice;
 import com.example.flightmanagementsystem.services.ScheduledFlightService;
-
 
 @RestController
 //@CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -32,7 +33,7 @@ public class ScheduledFlightController {
 	ScheduledFlightService scheduleFlightService;
 
 	@Autowired
-	Airportservice airportService;
+	AirportService airportService;
 
 	@Autowired
 	Flightservice flightService;
@@ -41,23 +42,26 @@ public class ScheduledFlightController {
 	 * Controller for adding Scheduled Flights
 	 */
 	@PostMapping("/add")
-	public ResponseEntity<ScheduledFlight> addSF(@RequestParam(name = "srcAirport") String source, @RequestParam(name = "dstnAirport") String destination,
-			@RequestParam(name = "deptDateTime") LocalDateTime departureTime, @RequestParam(name = "arrDateTime") LocalDateTime arrivalTime) throws AirportNotFoundException {
+	public ResponseEntity<ScheduledFlight> addSF(@RequestParam(name = "srcAirport") String source,
+			@RequestParam(name = "dstnAirport") String destination,
+			@RequestParam(name = "deptDateDate") String departureDate,
+			@RequestParam(name = "arrDateDate") String arrivalDate) throws AirportNotFoundException {
 		ScheduledFlight scheduledFlight = new ScheduledFlight();
 		Schedule schedule = new Schedule();
 		schedule.setScheduleID(scheduledFlight.getScheduleFlightId());
 		try {
-			schedule.setSourceAirport((Airport) airportService.viewairportByName(source));
+			// AirportRepo airportrepo;
+			scheduledFlight.schedule.setSourceAirport(source);
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
 		}
 		try {
-			schedule.setDestinationAirport((Airport) airportService.viewairportByName(destination));
+			scheduledFlight.schedule.setDestinationAirport(destination);
 		} catch (RecordNotFoundException e) {
 			return new ResponseEntity("Airport Not Found", HttpStatus.BAD_REQUEST);
 		}
-		schedule.setDepartureTime(departureTime);
-		schedule.setAirrivalTime(arrivalTime);
+		scheduledFlight.schedule.setDepartureDate(departureDate);
+		scheduledFlight.schedule.setArrivalDate(arrivalDate);
 		try {
 			scheduledFlight.setFlight((Flight) flightService.viewFlightById(scheduledFlight.getScheduleFlightId()));
 		} catch (RecordNotFoundException e1) {
@@ -100,7 +104,8 @@ public class ScheduledFlightController {
 	 */
 	@GetMapping("/search")
 	@ExceptionHandler(ScheduledFlightNotFoundException.class)
-	public ResponseEntity<ScheduledFlight> viewSF(@RequestParam BigInteger flightId) throws ScheduledFlightNotFoundException {
+	public ResponseEntity<ScheduledFlight> viewSF(@RequestParam BigInteger flightId)
+			throws ScheduledFlightNotFoundException {
 		ScheduledFlight searchSFlight = scheduleFlightService.viewScheduledFlight(flightId);
 		if (searchSFlight == null) {
 			return new ResponseEntity("Flight not present", HttpStatus.BAD_REQUEST);
@@ -116,6 +121,4 @@ public class ScheduledFlightController {
 	public Iterable<ScheduledFlight> viewAllSF() {
 		return scheduleFlightService.viewAllScheduledFlights();
 	}
-	
-
 }
