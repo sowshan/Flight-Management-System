@@ -41,10 +41,9 @@ public class UserController {
 
 	}
 
-	@PutMapping("/users/{id}")
+	@PutMapping("/update/{id}")
 	public String updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
-			throws RecordNotFoundException {
-		
+			{
 		return userService.updateUser(userId,user);
 	}
 	/*public ResponseEntity<User> updateUser(@PathVariable(value = "id") String userId, @Valid @RequestBody User user)
@@ -78,7 +77,7 @@ public class UserController {
 	@SuppressWarnings("unchecked")
 	@GetMapping("/searchUser/{id}")
 	// @ExceptionHandler(RecordNotFoundException.class)
-	public String searchUserByID(@PathVariable("id") String userId) throws RecordNotFoundException {
+	public String searchUserByID(@PathVariable("id") String userId){
 		//userService.viewUser(userId);
 		// throw new RecordNotFoundException();
 		return  userService.viewUser(userId);
@@ -88,12 +87,6 @@ public class UserController {
 	@DeleteMapping("/deleteUser/{id}")
 	// @ExceptionHandler(RecordNotFoundException.class)
 	public String deleteBookingByID(@PathVariable("id") String userId) {
-		boolean x = userService.removeUser(userId);
-		if (x) {
-			return "Deleted Successfully";
-		}
-		else {
-			return "UserId Not Found";
-		}
+		return userService.removeUser(userId);
 	}
 }

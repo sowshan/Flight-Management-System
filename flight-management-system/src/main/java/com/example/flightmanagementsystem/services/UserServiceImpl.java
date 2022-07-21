@@ -20,40 +20,37 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String addUser(User user) {
-		if(user.getPassword().isEmpty()|| user.getUserType().isEmpty()|| user.getPhoneNo().isEmpty()|| user.getUserEmail().isEmpty()|| user.getUserName().isEmpty()) {
-			return "Please fill all feilds";
-		}
-		else if(user.getPhoneNo().length()>10||user.getPhoneNo().length()<10){
-			return "Invalid Phone number";	
-		}
-		else if(!(user.getUserEmail().contains("@gmail.com"))) {
+		if (user.getPassword().isEmpty() || user.getUserType().isEmpty() || user.getPhoneNo().isEmpty()
+				|| user.getUserEmail().isEmpty() || user.getUserName().isEmpty()) {
+			return "Please fill all fields";
+		} else if (user.getPhoneNo().length() > 10 || user.getPhoneNo().length() < 10) {
+			return "Invalid Phone number";
+		} else if (!(user.getUserEmail().contains("@gmail.com"))) {
 			return "Invalid Email Id";
-		}
-		else {
+		} else {
 			usr.save(user);
-			return "User Added Successfully "+user.getUserId();
+			return "User Added Successfully!!\nYour UserId is " + user.getUserId();
 		}
 	}
 
 	@Override
 	public String viewUser(String userId) throws RecordNotFoundException {
+
 		if (usr.existsById(userId)) {
-			return "User Found "+usr.findByUserId(userId);
-		}
-		else
+			User user = usr.getReferenceById(userId);
+			return "User Found\n" + user;
+		} else
 			return "UserID Not Found";
 	}
 
 	@Override
-	public boolean removeUser(String userId) {
-			User user = usr.getReferenceById(userId);
-			if (usr.existsById(userId)&&user.getUserType() == "Admin") {
+	public String removeUser(String userId) {
+		User user = usr.getReferenceById(userId);
+		if (usr.existsById(userId)) {
 			usr.deleteById(userId);
-			return true;
-			 }
-		 else {
-			return false;
-		}
+			return "User " + userId + " Deleted";
+		} else
+			return "UserId does not exists";
 
 	}
 
@@ -68,24 +65,27 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String updateUser(String userId,User user) {
-		if (!(usr.existsById(userId))) {
+	public String updateUser(String userId, User user) {
+		User user1 = usr.getReferenceById(userId);
+		if (usr.existsById(userId)) {
+			if (user.getPassword().isEmpty() || user.getUserType().isEmpty() || user.getPhoneNo().isEmpty()
+					|| user.getUserEmail().isEmpty() || user.getUserName().isEmpty()) {
+				return "Please fill all fields";
+			} else if (user.getPhoneNo().length() > 10 || user.getPhoneNo().length() < 10) {
+				return "Invalid Phone number";
+			} else if (!(user.getUserEmail().contains("@gmail.com"))) {
+				return "Invalid Email Id";
+			}else {
+			//usr.save(user1);
+			user1.setUserName(user.getUserName());
+			user1.setUserEmail(user.getUserEmail());
+			user1.setPhoneNo(user.getPhoneNo());
+			return "Updated " + user1;
+			}
+
+		} else {
 			return "UserID Not Found";
 		}
-		else if(user.getPassword().isEmpty()|| user.getUserType().isEmpty()|| user.getPhoneNo().isEmpty()|| user.getUserEmail().isEmpty()|| user.getUserName().isEmpty()) {
-			return "Please fill all feilds";
-		}
-		else if(user.getPhoneNo().length()>10||user.getPhoneNo().length()<10){
-			return "Invalid Phone number";	
-		}
-		else if(!(user.getUserEmail().contains("@gmail.com"))) {
-			return "Invalid Email Id";
-		}
-		
-		else {
-		usr.save(user);
-		return "Updated "+usr.findByUserId(userId);
-		}
 	}
-	
+
 }

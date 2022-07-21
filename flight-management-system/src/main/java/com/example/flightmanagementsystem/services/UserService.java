@@ -12,6 +12,6 @@ public interface UserService {
 	public String login(String userId,String password) throws InvalidCredentialsException;
 	public  String addUser(User user); 
 	public String viewUser(String userId)throws RecordNotFoundException;
-	public boolean removeUser(String UserId) ;//throws UserNotFoundException;
+	public String removeUser(String UserId) ;//throws UserNotFoundException;
 	public String updateUser(String userId,User user);
 }

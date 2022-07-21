@@ -14,31 +14,31 @@ public class User {
 	//@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private String userId;
 	@Column
-	@NotNull
-	@NotBlank(message="Please enter a phone number")
-	@Size(min=10,max=10,message="Invalid Phone Number")
+	//@NotNull
+	//@NotBlank(message="Please enter a phone number")
+	//@Size(min=10,max=10,message="Invalid Phone Number")
 	private String phoneNo;
 	@Column
-	@Email(message="invalid Email id")
-	@NotBlank(message="Email cannot be blank")
+	//@Email(message="invalid Email id")
+	//@NotBlank(message="Email cannot be blank")
 	private String userEmail;
 	@Column
-	@NotNull
-	@NotBlank(message="Please enter a name")
+	//@NotNull
+	//@NotBlank(message="Please enter a name")
 	private String userName;
 	@Column
-	@NotNull
-	@NotBlank(message="Please enter usertype")
+	//@NotNull
+	//@NotBlank(message="Please enter usertype")
 	private String userType;
 	@Column
-	@NotNull
-	@NotBlank(message="Please enter a password")
+	//@NotNull
+	//@NotBlank(message="Please enter a password")
 	private String password;
 
-public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPhoneNo() {
+public  String getPhoneNo() {
 		return phoneNo;
 	}
-	public void setPhoneNo(@Size(min = 10, max = 10, message = "Invalid Phone Number") String phoneNo) {
+	public void setPhoneNo(String phoneNo) {
 		this.phoneNo = phoneNo;
 	}
 	public String getUserEmail() {
@@ -71,6 +71,11 @@ public @Size(min = 10, max = 10, message = "Invalid Phone Number") String getPho
 	public void setUserId(String userId) { 
   this.userId = userId; 
   }
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", phoneNo=" + phoneNo + ", userEmail=" + userEmail + ", userName=" + userName
+				+ ", userType=" + userType + ", password=" + password + "]";
+	}
 	 
 	
 	
